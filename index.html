@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sourish's World</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
         
         body {
             display: flex;
@@ -13,9 +13,9 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            background: linear-gradient(135deg, #d291bc, #957dad);
             color: white;
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Raleway', sans-serif;
             text-align: center;
         }
         .container {
@@ -42,7 +42,7 @@
             font-size: 1.2rem;
             font-weight: bold;
             color: white;
-            background: #a133ff;
+            background: #ff79c6;
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -50,7 +50,7 @@
             transition: background 0.3s;
         }
         .button:hover {
-            background: #c77dff;
+            background: #ff92d0;
         }
         .social-links {
             margin-top: 20px;
@@ -64,12 +64,15 @@
         .youtube-video {
             margin-top: 20px;
         }
-        iframe {
+        .thumbnail {
             width: 100%;
             max-width: 560px;
-            height: 315px;
             border-radius: 10px;
-            border: none;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .thumbnail:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -86,7 +89,9 @@
         </div>
         
         <div class="youtube-video">
-            <iframe src="https://www.youtube.com/watch?v=0UCMIbde49s" allowfullscreen></iframe>
+            <a href="https://www.youtube.com/watch?v=0UCMIbde49s" target="_blank">
+                <img src="https://img.youtube.com/vi/0UCMIbde49s/hqdefault.jpg" alt="YouTube Video Thumbnail" class="thumbnail">
+            </a>
         </div>
     </div>
 </body>
