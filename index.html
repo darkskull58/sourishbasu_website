@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sourish's World</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+        
         body {
             display: flex;
             justify-content: center;
@@ -13,28 +15,50 @@
             margin: 0;
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: white;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
             text-align: center;
         }
         .container {
-            padding: 20px;
+            padding: 30px;
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+            width: 90%;
         }
         h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
+            font-weight: 700;
         }
         p {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            margin: 10px 0 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
             font-size: 1.2rem;
-            opacity: 0.8;
+            font-weight: bold;
+            color: white;
+            background: #ff7e5f;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .button:hover {
+            background: #feb47b;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Welcome to Sourish's World</h1>
-        <p>Stay Tuned for more</p>
+        <p>Stay Tuned for More</p>
+        <a href="#" class="button">Discover More</a>
     </div>
 </body>
 </html>
