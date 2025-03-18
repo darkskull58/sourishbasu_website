@@ -3,111 +3,923 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sourish's Designs</title>
+    <title>Sourish's Designs - VFX & Game Dev Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;700&display=swap');
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #00cec9;
+            --dark-color: #2d3436;
+            --light-color: #f5f6fa;
+            --accent-color: #fd79a8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
         
         body {
+            background-color: #0f0f0f;
+            color: var(--light-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(108, 92, 231, 0.3);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            align-items: center;
+        }
+        
+        .social-links a {
+            color: var(--light-color);
+            font-size: 22px;
+            margin-left: 20px;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .youtube:hover {
+            color: #ff0000;
+        }
+        
+        .instagram:hover {
+            color: #e1306c;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1920/1080') no-repeat center center/cover;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(108, 92, 231, 0.2) 0%, rgba(0, 0, 0, 0.8) 70%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero h1 span {
+            color: var(--primary-color);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #ddd;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--light-color);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 15px;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+        
+        .btn:hover {
+            background: #5649c0;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.6);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary-color);
+        }
+        
+        /* About Section */
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--light-color);
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background: var(--primary-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .about-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 30px;
+        }
+        
+        .about-text h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 17px;
+            color: #ddd;
+        }
+        
+        .skills {
+            margin-top: 30px;
+        }
+        
+        .skill-item {
+            margin-bottom: 20px;
+        }
+        
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .skill-bar {
+            height: 10px;
+            background: #2d3436;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 5px;
+            position: relative;
+            transition: width 1.5s ease;
+        }
+        
+        /* Portfolio Section */
+        .portfolio {
+            background-color: #0a0a0a;
+        }
+        
+        .filter-buttons {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .filter-btn {
+            background: transparent;
+            border: 2px solid var(--dark-color);
+            color: var(--light-color);
+            padding: 8px 25px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--light-color);
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .portfolio-img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
-            color: white;
-            font-family: 'Rajdhani', sans-serif;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--light-color);
+        }
+        
+        .portfolio-category {
+            font-size: 16px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .portfolio-link {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: var(--light-color);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-link:hover {
+            background: var(--light-color);
+            color: var(--primary-color);
+        }
+        
+        /* Featured Video Section */
+        .featured-video {
+            background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured-video::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/1920/1080') no-repeat center center/cover;
+            opacity: 0.1;
+        }
+        
+        .video-content {
+            position: relative;
+            z-index: 1;
             text-align: center;
         }
-        .container {
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(15px);
-            max-width: 650px;
-            width: 90%;
-        }
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-        }
-        p {
-            font-size: 1.5rem;
-            opacity: 0.9;
-            margin: 10px 0 20px;
-        }
-        .button {
-            display: inline-block;
-            padding: 14px 30px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: white;
-            background: #ff4d6d;
-            border: none;
+        
+        .video-container {
+            margin: 40px auto;
+            max-width: 800px;
             border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        .video-thumbnail {
+            width: 100%;
+            height: auto;
+            display: block;
             cursor: pointer;
-            text-decoration: none;
-            transition: background 0.3s, transform 0.2s;
+            transition: transform 0.3s ease;
         }
-        .button:hover {
-            background: #ff758f;
-            transform: scale(1.05);
-        }
-        .social-links {
-            margin-top: 20px;
+        
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(108, 92, 231, 0.8);
+            border-radius: 50%;
             display: flex;
             justify-content: center;
-            gap: 15px;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-        .social-links a {
+        
+        .video-play-btn:hover {
+            background: var(--primary-color);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .video-play-btn i {
+            color: var(--light-color);
+            font-size: 30px;
+            margin-left: 5px;
+        }
+        
+        /* Contact Section */
+        .contact {
+            background: #0f0f0f;
+        }
+        
+        .contact-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 30px;
+        }
+        
+        .contact-info h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .contact-info p {
+            margin-bottom: 30px;
+            color: #ddd;
+        }
+        
+        .contact-details {
+            margin-bottom: 30px;
+        }
+        
+        .contact-item {
             display: flex;
             align-items: center;
+            margin-bottom: 20px;
         }
-        .social-links img {
-            width: 40px;
-            height: auto;
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 20px;
+            flex-shrink: 0;
         }
-        .youtube-video {
-            margin-top: 20px;
+        
+        .contact-icon i {
+            color: var(--light-color);
+            font-size: 20px;
         }
-        .thumbnail {
-            width: 100%;
-            max-width: 400px;
-            height: auto;
-            aspect-ratio: 16 / 9;
+        
+        .contact-text {
+            flex: 1;
+        }
+        
+        .contact-text h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: var(--light-color);
+        }
+        
+        .contact-text p {
+            margin: 0;
+            color: #ddd;
+        }
+        
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(45, 52, 54, 0.5);
+            padding: 30px;
             border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            object-fit: cover;
-            border: 4px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
         }
-        .thumbnail:hover {
-            transform: scale(1.05);
-            box-shadow: 0px 6px 20px rgba(255, 255, 255, 0.5);
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: var(--light-color);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        textarea.form-control {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        .submit-btn {
+            background: var(--primary-color);
+            color: var(--light-color);
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: #5649c0;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.6);
+        }
+        
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .footer-logo span {
+            color: var(--secondary-color);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links li {
+            margin: 0 15px;
+        }
+        
+        .footer-links a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .footer-social {
+            margin-bottom: 20px;
+        }
+        
+        .footer-social a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #222;
+            border-radius: 50%;
+            color: var(--light-color);
+            line-height: 40px;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-social a:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            color: #999;
+            font-size: 15px;
+        }
+        
+        /* Responsive */
+        @media screen and (max-width: 992px) {
+            .container {
+                padding: 0 40px;
+            }
+            .hero h1 {
+                font-size: 48px;
+            }
+            .about-content {
+                flex-direction: column;
+            }
+            .about-text {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            .hero h1 {
+                font-size: 36px;
+            }
+            .hero p {
+                font-size: 18px;
+            }
+            .section-title {
+                font-size: 30px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .contact-container {
+                flex-direction: column;
+            }
+            .contact-info {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Sourish Basu</h1>
-        <p>VFX Artist - Game Designer</p>
-        <a href="#" class="button">Stay Tuned for More</a>
-        
-        <div class="social-links">
-            <a href="https://www.instagram.com/sourish.vfx/" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram">
-            </a>
-            <a href="https://www.youtube.com/@SourishStudios" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube">
-            </a>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Sourish's <span>Designs</span></a>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#video">Featured</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.youtube.com/" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.instagram.com/" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </nav>
         </div>
-        
-        <div class="youtube-video">
-            <a href="https://www.youtube.com/watch?v=0UCMIbde49s" target="_blank">
-                <img src="https://img.youtube.com/vi/0UCMIbde49s/mqdefault.jpg" alt="YouTube Video Thumbnail" class="thumbnail">
-            </a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Transforming <span>Ideas</span><br>Into Visual Reality</h1>
+                <p>Specialized in VFX & Game Development with a passion for creating immersive digital experiences</p>
+                <a href="#portfolio" class="btn">View My Work</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
         </div>
-    </div>
-</body>
-</html>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>VFX Artist & Game Developer</h3>
+                    <p>I'm a passionate visual effects artist and game developer with expertise in creating stunning visual experiences. With a strong background in both technical implementation and artistic design, I bring creative visions to life through cutting-edge technology.</p>
+                    <p>My journey began with a fascination for how digital art and programming intersect to create interactive experiences. Today, I specialize in creating high-quality visual effects for games, films, and interactive media, focusing on realistic simulations, dynamic environments, and immersive gameplay.</p>
+                    <div class="skills">
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>3D Modeling & Animation</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>Visual Effects (VFX)</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>Game Development</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>Shader Programming</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="section portfolio" id="portfolio">
+        <div class="container">
+            <h2 class="section-title">My Portfolio</h2>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="vfx">VFX</button>
+                <button class="filter-btn" data-filter="game">Game Dev</button>
+                <button class="filter-btn" data-filter="3d">3D Models</button>
+            </div>
+            <div class="portfolio-grid">
+                <!-- Portfolio Item 1 -->
+                <div class="portfolio-item" data-category="vfx">
+                    <img src="/api/placeholder/400/320" alt="VFX Project" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3 class="portfolio-title">Elemental Magic</h3>
+                        <p class="portfolio-category">Visual Effects</p>
+                        <div class="portfolio-links">
+                            <a href="#" class="portfolio-link"><i class="fas fa-link"></i></a>
+                            <a href="#" class="portfolio-link"><i class="fas fa-search"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 2 -->
+                <div class="portfolio-item" data-category="game">
+                    <img src="/api/placeholder/400/320" alt="Game Project" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3 class="portfolio-title">Neon Horizon</h3>
+                        <p class="portfolio-category">Game Development</p>
+                        <div class="portfolio-links">
+                            <a href="#" class="portfolio-link"><i class="fas fa-link"></i></a>
+                            <a href="#" class="portfolio-link"><i class="fas fa-search"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 3 -->
+                <div class="portfolio-item" data-category="3d">
+                    <img src="/api/placeholder/400/320" alt="3D Model" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3 class="portfolio-title">Futuristic Environment</h3>
+                        <p class="portfolio-category">3D Modeling</p>
+                        <div class="portfolio-links">
+                            <a href="#" class="portfolio-link"><i class="fas fa-link"></i></a>
+                            <a href="#" class="portfolio-link"><i class="fas fa-search"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 4 -->
+                <div class="portfolio-item" data-category="vfx">
+                    <img src="/api/placeholder/400/320" alt="VFX Project" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3 class="portfolio-title">Particle System</h3>
+                        <p class="portfolio-category">Visual Effects</p>
+                        <div class="portfolio-links">
+                            <a href="#" class="portfolio-link"><i class="fas fa-link"></i></a>
+                            <a href="#" class="portfolio-link"><i class="fas fa-search"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 5 -->
+                <div class="portfolio-item" data-category="game">
+                    <img src="/api/placeholder/400/320" alt="Game Project" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3 class="portfolio-title">Lost Caverns</h3>
+                        <p class="portfolio-category">Game Development</p>
+                        <div class="portfolio-links">
+                            <a href="#" class="portfolio-link"><i class="fas fa-link"></i></a>
+                            <a href="#" class="portfolio-link"><i class="fas fa-search"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 6 -->
+                <div class="portfolio-item" data-category="3d">
+                    <img src="/api/placeholder/400/320" alt="3D Model" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3 class="portfolio-title">Character Design</h3>
+                        <p class="portfolio-category">3D Modeling</p>
+                        <div class="portfolio-links">
+                            <a href="#" class="portfolio-link"><i class="fas fa-link"></i></a>
+                            <a href="#" class="portfolio-link"><i class="fas fa-search"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Video Section -->
+    <section class="section featured-video" id="video">
+        <div class="container">
+            <h2 class="section-title">Featured Work</h2>
+            <div class="video-content">
+                <p>Check out my latest VFX breakdown showcasing my creative process and technical skills</p>
+                <div class="video-container">
+                    <a href="https://www.youtube.com/" target="_blank">
+                        <img src="/api/placeholder/800/450" alt="Featured Video Thumbnail" class="video-thumbnail">
+                        <div class="video-play-btn">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Let's Discuss Your Project</h3>
+                    <p>Whether you're looking for custom VFX work, game development services, or just want to connect, feel free to reach out. I'm always open to discussing new projects and creative ideas.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email</h4>
+                                <p>contact@sourishdesigns.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Phone</h4>
+                                <p>+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Location</h4>
+                                <p>Los Angeles, California</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-media">
+                        <h4>Follow Me</h4>
+                        <div class="social-links">
+                            <a href="https://www.youtube.com/" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
+                            <a href="https://www.instagram.com/" target="_blank
