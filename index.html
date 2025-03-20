@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Purple Night Parallax</title>
+    <title>Sourish Designs</title>
     <style>
         * {
             margin: 0;
@@ -18,6 +18,135 @@
             overflow-x: hidden;
         }
 
+        /* Navigation and Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(18, 0, 36, 0.7);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #e0d5ff;
+            text-shadow: 0 0 10px #8a2be2;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #e0d5ff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #a165ff;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #a165ff;
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .contact-btn {
+            background: linear-gradient(135deg, #6a11cb, #8a2be2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+            transition: all 0.3s;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(138, 43, 226, 0.6);
+        }
+
+        .social-icons {
+            display: flex;
+            align-items: center;
+            margin-left: 30px;
+        }
+
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            margin-left: 15px;
+            background-color: rgba(138, 43, 226, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+            color: #e0d5ff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            border: 1px solid rgba(138, 43, 226, 0.4);
+        }
+
+        .social-icon:hover {
+            background-color: rgba(138, 43, 226, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1002;
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: #e0d5ff;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        /* Banner */
         .banner {
             position: relative;
             height: 100vh;
@@ -26,11 +155,20 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            padding-top: 60px;
+        }
+
+        .banner-image-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .banner-image {
-            width: 100%;
-            height: 100%;
+            width: min(100%, 100vh);
+            height: min(100%, 100vh);
             object-fit: cover;
             transition: transform 0.5s ease;
         }
@@ -65,6 +203,7 @@
             text-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
         }
 
+        /* Plateau section */
         .plateau {
             position: relative;
             min-height: 100vh;
@@ -134,6 +273,144 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
+        /* Portfolio Section */
+        .portfolio {
+            padding: 50px 0;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 30px;
+            width: 80%;
+            margin: 40px auto;
+        }
+
+        .youtube-container {
+            position: relative;
+            width: 71%; /* Slightly smaller for a more compact look */
+            height: 0;
+            padding-bottom: 40.25%; /* 16:9 aspect ratio (height = width * 9/16) */
+            margin: 20px auto; /* Center the container */
+            border-radius: 12px; /* Softer rounded corners */
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Softer shadow */
+            max-width: 1120px; /* Slightly smaller max-width */
+        }
+
+        .youtube-thumbnail {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background-color: rgba(138, 43, 226, 0.8);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .play-button::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 20px solid transparent;
+            border-left: 30px solid white;
+            border-bottom: 20px solid transparent;
+            margin-left: 7px;
+        }
+
+        .youtube-container:hover .play-button {
+            background-color: rgba(173, 88, 255, 0.9);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .youtube-container:hover .youtube-thumbnail {
+            transform: scale(1.05);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0 50px;
+            position: relative;
+            background: linear-gradient(to top, #1a0034, #2a0050);
+            border-top-left-radius: 50% 80px;
+            border-top-right-radius: 50% 80px;
+            margin-top: -80px;
+            box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(42, 0, 80, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            flex: 1;
+            min-width: 250px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #6a11cb, #8a2be2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .contact-item h3 {
+            margin-bottom: 10px;
+            color: #d4c1ff;
+        }
+
+        .contact-item p, .contact-item a {
+            color: #b89dff;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: #e0d5ff;
+            text-decoration: underline;
+        }
+
         /* Animations and effects */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(30px); }
@@ -190,26 +467,130 @@
             font-size: 0.9rem;
             box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
         }
+
+        /* Responsive design */
+        @media (max-width: 991px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 250px;
+                height: 100%;
+                background: rgba(18, 0, 36, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                z-index: 1001;
+                transition: right 0.3s ease;
+                padding: 80px 0;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 15px 0;
+            }
+
+            .social-icons {
+                position: fixed;
+                bottom: 20px;
+                left: 0;
+                width: 100%;
+                justify-content: center;
+                margin-left: 0;
+                z-index: 1001;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+
+            .banner-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .banner-content p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-item {
+                flex-basis: 100%;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Stars background -->
     <div class="stars" id="stars"></div>
 
+    <!-- Header & Navigation -->
+    <header>
+        <div class="logo">Sourish Designs</div>
+        <div class="nav-container">
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#portfolio" class="nav-link">My Work</a></li>
+                    <li><a href="#contact" class="contact-btn nav-link">Contact</a></li>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">FB</a>
+                        <a href="#" class="social-icon">IG</a>
+                        <a href="#" class="social-icon">TW</a>
+                        <a href="#" class="social-icon">YT</a>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
     <!-- Banner section -->
-    <section class="banner">
-        <img src="/api/placeholder/1920/1080" alt="Banner placeholder" class="banner-image" id="banner-image">
+    <section class="banner" id="home">
+        <div class="banner-image-container">
+            <img src="/api/placeholder/1000/1000" alt="Banner placeholder" class="banner-image" id="banner-image">
+        </div>
         <div class="banner-overlay"></div>
         <div class="banner-content">
-            <h1>Purple Night</h1>
-            <p>A mesmerizing journey through the cosmic realm</p>
+            <h1>Designs by Sourish</h1>
+            <p>Journey through the cosmic realm</p>
         </div>
         <div class="transition-element"></div>
     </section>
 
     <!-- Plateau section with parallax -->
-    <section class="plateau">
-        <h2 class="section-title">Discover the Magic</h2>
+    <section class="plateau" id="portfolio">
+        <h2 class="section-title">My Work</h2>
         
         <div class="parallax-container" id="parallax-container">
             <img src="/api/placeholder/1920/1080" alt="Background placeholder" class="parallax-bg" id="parallax-bg">
@@ -217,13 +598,43 @@
         </div>
 
         <div class="placeholder-text">
-            <p>This space is perfect for your content. The parallax effect creates depth and engagement, with background and foreground images moving at different speeds as you interact with them.</p>
-            <p>Desktop users can hover over the image to see the effect, while mobile users will experience the parallax through their device's gyroscope.</p>
+            <p>Hello, I am Sourish. A VFX artist, Digital Filmmaker and Indie Game Developer.</p>
+        </div>
+
+        <!-- YouTube Video Section -->
+        <h2 class="section-title">Featured Video</h2>
+        <div class="youtube-container">
+            <img src="assets\Video Thumbnails\Arjuna Vs Karna.png" alt="YouTube Thumbnail" class="youtube-thumbnail">
+            <a href="https://www.youtube.com/watch?v=0UCMIbde49s" target="_blank" class="play-button"></a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">Get in Touch</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email</h3>
+                    <a href="mailto:your.email@example.com">sourish.basu@example.com</a>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <h3>Phone</h3>
+                    <p>+91 00000-11111</p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <h3>Location</h3>
+                    <p>India</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <footer>
-        <p>© 2025 Purple Night Theme | Customize this footer with your information</p>
+        <p>© 2025 Sourish Basu</p>
     </footer>
 
     <script>
@@ -297,6 +708,41 @@
             // Banner effect
             bannerImage.style.transform = `scale(1.05) translateX(${normalizedGamma * -10}px) translateY(${normalizedBeta * -10}px)`;
         }
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70, // Adjust for header height
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
