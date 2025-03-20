@@ -3,451 +3,300 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Designs by Sourish</title>
+    <title>Purple Night Parallax</title>
     <style>
-        /* Base Styles */
-        :root {
-            --primary-color: #6023e4;
-            --secondary-color: #ff9d00;
-            --tertiary-color: #00c2cb;
-            --background-dark: #0a0a19;
-            --text-light: #f0f0ff;
-            --film-color: #d3362a;
-            --games-color: #3478f6;
-            --tech-color: #12c98c;
-            --gold-accent: #ffd700;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Arial', sans-serif;
-            background: var(--background-dark);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(107, 56, 251, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 90% 80%, rgba(0, 194, 203, 0.15) 0%, transparent 40%);
-            color: var(--text-light);
+            background: linear-gradient(135deg, #120024, #2a0050);
+            color: #e0d5ff;
+            overflow-x: hidden;
+        }
+
+        .banner {
+            position: relative;
             height: 100vh;
-            overflow: hidden;
+            width: 100%;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
         }
-        
-        /* Title Styles */
-        .title-container {
-            position: relative;
-            margin-bottom: 4rem;
+
+        .banner-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .banner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(0deg, rgba(42, 0, 80, 0.8) 0%, rgba(18, 0, 36, 0.4) 100%);
+        }
+
+        .banner-content {
+            position: absolute;
+            text-align: center;
             z-index: 10;
+            padding: 20px;
+            animation: fadeIn 1.5s ease-in-out;
         }
-        
-        .title {
+
+        .banner-content h1 {
             font-size: 4rem;
-            font-weight: bold;
-            letter-spacing: 4px;
-            background: linear-gradient(135deg, #5ee7df 0%, #b490ca 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 4px 12px rgba(94, 231, 223, 0.3);
-            opacity: 1;
-            transition: opacity 0.8s ease, transform 0.8s ease;
-            position: relative;
-            text-align: center;
-            font-family: 'Helvetica', 'Arial', sans-serif;
-        }
-        
-        .title::after {
-            content: "";
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(to right, transparent, #b490ca, #5ee7df, transparent);
-            transform: scaleX(0.8);
-            opacity: 0.7;
-        }
-        
-        .subtitle {
-            text-align: center;
-            font-size: 1.1rem;
-            margin-top: 0.5rem;
-            color: rgba(240, 240, 255, 0.7);
-            font-style: italic;
-            opacity: 1;
-            transition: opacity 0.8s ease;
-        }
-        
-        /* Fish Container Styles */
-        .fish-container {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            transition: transform 0.3s ease;
-            z-index: 5;
-        }
-        
-        .fish-container:hover {
-            transform: scale(1.05);
-        }
-        
-        .fish-statue {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            background-image: url('/api/placeholder/200/200');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            transition: transform 0.5s ease, opacity 0.5s ease;
-            filter: drop-shadow(0 0 10px rgba(94, 231, 223, 0.4));
-        }
-        
-        /* Panels Container Styles */
-        .panels-container {
-            display: none;
-            width: 100%;
-            height: 100vh;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-        
-        .panel {
-            float: left;
-            width: 33.333%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            overflow: hidden;
-            position: relative;
-            transform: translateY(100%);
-        }
-        
-        .panel:hover {
-            width: 40%;
-        }
-        
-        .panel:hover ~ .panel {
-            width: 30%;
-        }
-        
-        .panel-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
-            transition: transform 0.3s ease;
-            padding: 2rem;
-        }
-        
-        .panel-title {
-            font-size: 2.8rem;
-            font-weight: bold;
-            letter-spacing: 4px;
             margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
+        }
+
+        .banner-content p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
+        }
+
+        .plateau {
             position: relative;
-            transition: all 0.3s ease;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #2a0050, #3b0062);
+            box-shadow: 0 -50px 50px rgba(18, 0, 36, 0.6);
+            padding: 50px 0;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            z-index: 10;
+            border-top-left-radius: 50% 80px;
+            border-top-right-radius: 50% 80px;
+            margin-top: -80px;
         }
-        
-        .panel-subtitle {
-            font-size: 1.1rem;
-            text-align: center;
-            max-width: 80%;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s ease 0.1s;
+
+        .parallax-container {
+            position: relative;
+            height: 80vh;
+            width: 80%;
+            margin: 60px auto;
+            transform-style: preserve-3d;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            overflow: hidden;
         }
-        
-        .panel:hover .panel-content {
-            transform: scale(1.1);
-        }
-        
-        .panel:hover .panel-subtitle {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .panel::before {
-            content: '';
+
+        .parallax-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-position: center;
-            background-size: cover;
-            opacity: 0.2;
-            transition: opacity 0.6s ease;
+            object-fit: cover;
+            transform: translateZ(0);
+            transition: transform 0.3s ease;
         }
-        
-        .panel::after {
-            content: '';
+
+        .parallax-fg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translateZ(50px);
+            transition: transform 0.3s ease;
+        }
+
+        .section-title {
+            text-align: center;
+            padding: 30px;
+            font-size: 2.5rem;
+            color: #d4c1ff;
+            text-shadow: 0 0 15px #8a2be2;
+            animation: glow 2s infinite alternate;
+        }
+
+        .placeholder-text {
+            text-align: center;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #d4c1ff;
+            background: rgba(138, 43, 226, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Animations and effects */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #8a2be2, 0 0 10px #8a2be2; }
+            to { text-shadow: 0 0 15px #8a2be2, 0 0 30px #8a2be2; }
+        }
+
+        .transition-element {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 30%;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-            z-index: 1;
-        }
-        
-        .panel:hover::before {
-            opacity: 0.7;
-        }
-        
-        #film-panel::before {
-            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/api/placeholder/400/800');
-            background-color: var(--film-color);
-        }
-        
-        #games-panel::before {
-            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/api/placeholder/400/800');
-            background-color: var(--games-color);
-        }
-        
-        #tech-panel::before {
-            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/api/placeholder/400/800');
-            background-color: var(--tech-color);
-        }
-        
-        #film-panel .panel-title {
-            color: var(--film-color);
-            text-shadow: 0 0 10px rgba(211, 54, 42, 0.5);
-        }
-        
-        #games-panel .panel-title {
-            color: var(--games-color);
-            text-shadow: 0 0 10px rgba(52, 120, 246, 0.5);
-        }
-        
-        #tech-panel .panel-title {
-            color: var(--tech-color);
-            text-shadow: 0 0 10px rgba(18, 201, 140, 0.5);
-        }
-        
-        /* Particle Effects */
-        .particle {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0;
-            z-index: 3;
-        }
-        
-        /* Glow Effect for Fish */
-        .glow {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(94, 231, 223, 0.4) 0%, transparent 70%);
-            top: 0;
-            left: 0;
-            opacity: 0;
-            transition: opacity 0.5s ease;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%233b0062' fill-opacity='1' d='M0,64L48,96C96,128,192,192,288,213.3C384,235,480,213,576,197.3C672,181,768,171,864,181.3C960,192,1056,224,1152,224C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
             pointer-events: none;
         }
-        
-        .fish-container:hover .glow {
-            opacity: 1;
-        }
-        
-        /* Animations */
-        @keyframes jiggle {
-            0% { transform: rotate(0deg) translateY(0); }
-            25% { transform: rotate(2deg) translateY(-2px); }
-            50% { transform: rotate(0deg) translateY(0); }
-            75% { transform: rotate(-2deg) translateY(-1px); }
-            100% { transform: rotate(0deg) translateY(0); }
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0); opacity: 1; }
-            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-        }
-        
-        .jiggle {
-            animation: jiggle 0.5s ease;
-        }
-        
-        /* Background Circuit Pattern */
-        .circuit-pattern {
-            position: absolute;
+
+        .stars {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                linear-gradient(to right, rgba(107, 56, 251, 0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(107, 56, 251, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
             pointer-events: none;
             z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 5s infinite;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        footer {
+            padding: 30px;
+            text-align: center;
+            background: linear-gradient(to right, #250046, #3b0062);
+            color: #d4c1ff;
+            font-size: 0.9rem;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
 <body>
-    <div class="circuit-pattern"></div>
-    
-    <div class="title-container">
-        <div class="title">DESIGNS BY SOURISH</div>
-        <div class="subtitle">Where Technology Meets Tradition</div>
-    </div>
-    
-    <div class="fish-container" id="fishContainer">
-        <div class="fish-statue" id="fishStatue"></div>
-        <div class="glow"></div>
-    </div>
-    
-    <div class="panels-container" id="panels">
-        <div class="panel" id="film-panel">
-            <div class="panel-content">
-                <div class="panel-title">FILM</div>
-                <div class="panel-subtitle">Cinematic journeys that blend mythology with modern storytelling</div>
-            </div>
+    <!-- Stars background -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Banner section -->
+    <section class="banner">
+        <img src="/api/placeholder/1920/1080" alt="Banner placeholder" class="banner-image" id="banner-image">
+        <div class="banner-overlay"></div>
+        <div class="banner-content">
+            <h1>Purple Night</h1>
+            <p>A mesmerizing journey through the cosmic realm</p>
         </div>
-        <div class="panel" id="games-panel">
-            <div class="panel-content">
-                <div class="panel-title">GAMES</div>
-                <div class="panel-subtitle">Interactive experiences inspired by ancient wisdom and futuristic technology</div>
-            </div>
+        <div class="transition-element"></div>
+    </section>
+
+    <!-- Plateau section with parallax -->
+    <section class="plateau">
+        <h2 class="section-title">Discover the Magic</h2>
+        
+        <div class="parallax-container" id="parallax-container">
+            <img src="/api/placeholder/1920/1080" alt="Background placeholder" class="parallax-bg" id="parallax-bg">
+            <img src="/api/placeholder/1920/1080" alt="Foreground placeholder" class="parallax-fg" id="parallax-fg">
         </div>
-        <div class="panel" id="tech-panel">
-            <div class="panel-content">
-                <div class="panel-title">TECH</div>
-                <div class="panel-subtitle">Innovative solutions that honor tradition while embracing the future</div>
-            </div>
+
+        <div class="placeholder-text">
+            <p>This space is perfect for your content. The parallax effect creates depth and engagement, with background and foreground images moving at different speeds as you interact with them.</p>
+            <p>Desktop users can hover over the image to see the effect, while mobile users will experience the parallax through their device's gyroscope.</p>
         </div>
-    </div>
-    
+    </section>
+
+    <footer>
+        <p>© 2025 Purple Night Theme | Customize this footer with your information</p>
+    </footer>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const fishContainer = document.getElementById('fishContainer');
-            const fishStatue = document.getElementById('fishStatue');
-            const panels = document.getElementById('panels');
-            const titleContainer = document.querySelector('.title-container');
-            let isTransitioning = false;
+        // Create stars
+        const starsContainer = document.getElementById('stars');
+        const numberOfStars = 200;
+
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 5}s`;
+            star.style.width = `${Math.random() * 3}px`;
+            star.style.height = star.style.width;
+            starsContainer.appendChild(star);
+        }
+
+        // Parallax effect for mouse movement
+        const parallaxContainer = document.getElementById('parallax-container');
+        const parallaxBg = document.getElementById('parallax-bg');
+        const parallaxFg = document.getElementById('parallax-fg');
+        const bannerImage = document.getElementById('banner-image');
+
+        // Mouse movement parallax
+        parallaxContainer.addEventListener('mousemove', (e) => {
+            const containerRect = parallaxContainer.getBoundingClientRect();
+            const mouseX = (e.clientX - containerRect.left) / containerRect.width - 0.5;
+            const mouseY = (e.clientY - containerRect.top) / containerRect.height - 0.5;
             
-            // Function to make the fish jiggle randomly
-            function randomJiggle() {
-                if (!isTransitioning) {
-                    const randomTime = Math.floor(Math.random() * 8000) + 5000; // Random time between 5-13 seconds
-                    setTimeout(() => {
-                        fishStatue.classList.add('jiggle');
-                        setTimeout(() => {
-                            fishStatue.classList.remove('jiggle');
-                            randomJiggle();
-                        }, 500);
-                    }, randomTime);
-                }
-            }
-            
-            // Start the random jiggle
-            randomJiggle();
-            
-            // Function to create particles
-            function createParticles(x, y) {
-                const colors = ['#5ee7df', '#b490ca', '#5351d7', '#00c2cb', '#6b38fb'];
-                const particleCount = 50;
-                
-                for (let i = 0; i < particleCount; i++) {
-                    const particle = document.createElement('div');
-                    particle.classList.add('particle');
-                    
-                    // Random position around the hit point
-                    const posX = x + (Math.random() - 0.5) * 60;
-                    const posY = y + (Math.random() - 0.5) * 60;
-                    
-                    particle.style.left = posX + 'px';
-                    particle.style.top = posY + 'px';
-                    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    
-                    // Random size
-                    const size = Math.random() * 8 + 4;
-                    particle.style.width = size + 'px';
-                    particle.style.height = size + 'px';
-                    
-                    // Animation
-                    const duration = Math.random() * 1 + 0.5;
-                    const delay = Math.random() * 0.2;
-                    
-                    particle.style.animation = `float ${duration}s ease-out ${delay}s forwards`;
-                    
-                    document.body.appendChild(particle);
-                    
-                    // Remove particle after animation
-                    setTimeout(() => {
-                        particle.remove();
-                    }, (duration + delay) * 1000);
-                }
-            }
-            
-            // Fish click event
-            fishContainer.addEventListener('click', function(e) {
-                if (!isTransitioning) {
-                    isTransitioning = true;
-                    
-                    // Calculate fish position
-                    const fishRect = fishStatue.getBoundingClientRect();
-                    const fishCenterX = fishRect.left + fishRect.width / 2;
-                    const fishCenterY = fishRect.top + fishRect.height / 2;
-                    
-                    // Create particles at fish position
-                    createParticles(fishCenterX, fishCenterY);
-                    
-                    // Fade out fish and title
-                    fishContainer.style.opacity = '0';
-                    titleContainer.style.opacity = '0';
-                    titleContainer.style.transform = 'translateY(-50px)';
-                    
-                    // Show panels after delay
-                    setTimeout(() => {
-                        fishContainer.style.display = 'none';
-                        panels.style.display = 'block';
-                        
-                        // Animate panels appearance
-                        const panelElements = document.querySelectorAll('.panel');
-                        panelElements.forEach((panel, index) => {
-                            setTimeout(() => {
-                                panel.style.transition = 'transform 0.8s cubic-bezier(0.19, 1, 0.22, 1), width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                                panel.style.transform = 'translateY(0)';
-                            }, index * 150);
-                        });
-                    }, 800);
-                }
-            });
-            
-            // Panel click events - ensure consistent behavior
-            document.querySelectorAll('.panel').forEach(panel => {
-                panel.addEventListener('click', function() {
-                    console.log(this.id + ' panel clicked');
-                    // Add functionality to navigate to respective sections/pages
-                    window.location.href = "./SecondPage.html";
-                });
-                
-                // Fix for tech panel flickering - force GPU acceleration and prevent pointer events during transition
-                panel.addEventListener('transitionstart', function() {
-                    this.style.willChange = 'transform, width';
-                });
-                
-                panel.addEventListener('transitionend', function() {
-                    this.style.willChange = 'auto';
-                });
-            });
+            parallaxBg.style.transform = `translateX(${mouseX * 30}px) translateY(${mouseY * 30}px)`;
+            parallaxFg.style.transform = `translateX(${mouseX * 60}px) translateY(${mouseY * 60}px) translateZ(50px)`;
         });
+
+        // Reset when mouse leaves
+        parallaxContainer.addEventListener('mouseleave', () => {
+            parallaxBg.style.transform = 'translateX(0) translateY(0)';
+            parallaxFg.style.transform = 'translateX(0) translateY(0) translateZ(50px)';
+        });
+
+        // Banner subtle movement
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX / window.innerWidth - 0.5;
+            const mouseY = e.clientY / window.innerHeight - 0.5;
+            
+            bannerImage.style.transform = `scale(1.05) translateX(${mouseX * 20}px) translateY(${mouseY * 20}px)`;
+        });
+
+        // Gyroscope for mobile devices
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener('deviceorientation', handleOrientation);
+        }
+
+        function handleOrientation(event) {
+            // Check if we have the data we need
+            if (event.beta === null || event.gamma === null) return;
+            
+            // Beta is front-to-back tilt in degrees, where front is positive
+            // Gamma is left-to-right tilt in degrees, where right is positive
+            const beta = event.beta;  // Range: -180 to 180
+            const gamma = event.gamma; // Range: -90 to 90
+            
+            // Normalize the values
+            const normalizedBeta = (beta / 45).toFixed(2);  // Normalize to a reasonable range
+            const normalizedGamma = (gamma / 45).toFixed(2); // Normalize to a reasonable range
+            
+            // Apply the parallax effect
+            parallaxBg.style.transform = `translateX(${normalizedGamma * -20}px) translateY(${normalizedBeta * -20}px)`;
+            parallaxFg.style.transform = `translateX(${normalizedGamma * -40}px) translateY(${normalizedBeta * -40}px) translateZ(50px)`;
+            
+            // Banner effect
+            bannerImage.style.transform = `scale(1.05) translateX(${normalizedGamma * -10}px) translateY(${normalizedBeta * -10}px)`;
+        }
     </script>
 </body>
 </html>
