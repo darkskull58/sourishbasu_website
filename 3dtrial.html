@@ -26,7 +26,7 @@
 
         // GLTF Loader
         const loader = new THREE.GLTFLoader();
-        loader.load('assets/model/model.glb', function(gltf) {
+        loader.load('assets/models/controller.glb', function(gltf) {
             scene.add(gltf.scene);
             gltf.scene.position.set(0, -1, 0);
         }, undefined, function(error) {
