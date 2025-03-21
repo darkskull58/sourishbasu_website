@@ -9,6 +9,7 @@
     <!-- Fixed GLTFLoader import path -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/loaders/GLTFLoader.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three/examples/js/loaders/GLTFLoader.js"></script>
     <style>
         body {
             margin: 0;
@@ -300,7 +301,7 @@
         };
 
         // Create a loader instance - FIXED: Using module loader pattern 
-        let loader;
+        //const loader;
         
         // Check if GLTFLoader is available
         function setupLoaders() {
@@ -315,7 +316,7 @@
                 script.src = "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.min.js";
                 script.onload = () => {
                     if (typeof THREE.GLTFLoader === 'function') {
-                        loader = new THREE.GLTFLoader();
+                        const loader = new THREE.GLTFLoader();
                         loadModels();
                     } else {
                         createFallbackModels();
@@ -543,7 +544,7 @@
                 
                 loader.load(
                     modelPath,
-                    (gltf) => {
+                    function(gltf) {
                         const model = gltf.scene;
                         
                         // Apply model configurations
@@ -595,7 +596,7 @@
                     (xhr) => {
                         console.log(`${container.id} ${Math.floor(xhr.loaded / xhr.total * 100)}% loaded`);
                     },
-                    (error) => {
+                    function(error) {
                         console.error(`Error loading model ${container.id}:`, error);
                         
                         // Create fallback geometry if model fails to load
