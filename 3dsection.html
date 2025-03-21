@@ -553,7 +553,7 @@
                         model.scale.set(config.scale, config.scale, config.scale);
                         
                         // Apply color tint to the model materials
-                        model.traverse((child) => {
+                        /*model.traverse((child) => {
                             if (child.isMesh && !child.userData.isGlowMesh) {
                                 // Create a new material with the configured color
                                 child.material = new THREE.MeshPhongMaterial({
@@ -575,8 +575,8 @@
                                 glowMesh.scale.multiplyScalar(1.05);
                                 glowMesh.userData.isGlowMesh = true; // Mark as glow mesh to avoid recursion
                                 child.add(glowMesh);
-                            }
-                        });
+                            } 
+                        }); */
 
                         
                         scenes[index].add(model);
