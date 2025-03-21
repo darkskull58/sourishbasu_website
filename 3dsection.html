@@ -554,7 +554,7 @@
                         
                         // Apply color tint to the model materials
                         model.traverse((child) => {
-                            if (child.isMesh) {
+                            if (child.isMesh && !child.userData.isGlowMesh) {
                                 // Create a new material with the configured color
                                 child.material = new THREE.MeshPhongMaterial({
                                     color: config.color,
@@ -562,7 +562,7 @@
                                     specular: 0x444444,
                                     emissive: new THREE.Color(config.color).multiplyScalar(0.1)
                                 });
-                                
+
                                 // Add glow effect
                                 const glowMaterial = new THREE.MeshBasicMaterial({
                                     color: config.color,
@@ -570,12 +570,14 @@
                                     opacity: 0.2,
                                     side: THREE.BackSide
                                 });
-                                
+
                                 const glowMesh = new THREE.Mesh(child.geometry.clone(), glowMaterial);
                                 glowMesh.scale.multiplyScalar(1.05);
+                                glowMesh.userData.isGlowMesh = true; // Mark as glow mesh to avoid recursion
                                 child.add(glowMesh);
                             }
                         });
+
                         
                         scenes[index].add(model);
                         models[index] = model;
