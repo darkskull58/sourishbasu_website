@@ -4,7 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sourish Designs</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: #121212;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .section-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 30px;
+        }
+
+        .section-card {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .section-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        .model-container {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            background: radial-gradient(circle, rgba(40,40,40,1) 0%, rgba(20,20,20,1) 100%);
+        }
+
+        .section-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+        p {
+            margin: 0;
+            font-size: 14px;
+            color: #aaaaaa;
+            line-height: 1.5;
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: transparent;
+            color: #4d84ff;
+            border: 2px solid #4d84ff;
+            border-radius: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #4d84ff;
+            color: #121212;
+        }
+
+        .page-title {
+            text-align: center;
+            padding: 40px 0;
+            font-size: 42px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #4d84ff, #ff4d9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .section-card {
+                width: 100%;
+                max-width: 340px;
+            }
+        }
+    
         * {
             margin: 0;
             padding: 0;
@@ -600,20 +700,200 @@
         <div class="transition-element"></div>
     </section>
 
+
     <!-- Plateau section with banner moved up -->
     <section class="plateau" id="portfolio">
+
+        <section> <!-- 3D section -->
+            <h1 class="page-title">Explore My Work</h1>
+            
+            <div class="section-container">
+                <!-- Game Dev Section -->
+                <div class="section-card" id="gamedev-card">
+                    <div class="model-container" id="gamedev-model"></div>
+                    <div class="section-info">
+                        <h2>Game Development</h2>
+                        <p>Explore my game development projects, tools, and design philosophies.</p>
+                        <a href="#" class="cta-button">Discover Games</a>
+                    </div>
+                </div>
+                
+                <!-- Filmmaking Section -->
+                <div class="section-card" id="film-card">
+                    <div class="model-container" id="film-model"></div>
+                    <div class="section-info">
+                        <h2>Filmmaking</h2>
+                        <p>View my cinematic works, from short films to visual effects and cinematography.</p>
+                        <a href="#" class="cta-button">Watch Films</a>
+                    </div>
+                </div>
+                
+                <!-- Tech Section -->
+                <div class="section-card" id="tech-card">
+                    <div class="model-container" id="tech-model"></div>
+                    <div class="section-info">
+                        <h2>Technology</h2>
+                        <p>Check out my tech projects, software developments, and innovative solutions.</p>
+                        <a href="#" class="cta-button">See Tech</a>
+                    </div>
+                </div>
+            </div>
+        
+            <script>
+                // Initialize Three.js scenes
+                const scenes = [];
+                const cameras = [];
+                const renderers = [];
+                const animationStates = {
+                    'gamedev-model': { rotating: true },
+                    'film-model': { rotating: true },
+                    'tech-model': { rotating: true }
+                };
+        
+                // Container elements
+                const containers = [
+                    document.getElementById('gamedev-model'),
+                    document.getElementById('film-model'),
+                    document.getElementById('tech-model')
+                ];
+        
+                // Setup scenes
+                containers.forEach((container, index) => {
+                    // Create scene
+                    const scene = new THREE.Scene();
+                    scenes.push(scene);
+                    
+                    // Create camera
+                    const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+                    camera.position.z = 5;
+                    cameras.push(camera);
+                    
+                    // Create renderer
+                    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                    renderer.setSize(container.clientWidth, container.clientHeight);
+                    container.appendChild(renderer.domElement);
+                    renderers.push(renderer);
+                    
+                    // Add lighting
+                    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+                    scene.add(ambientLight);
+                    
+                    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+                    directionalLight.position.set(0, 1, 1);
+                    scene.add(directionalLight);
+                    
+                    // Create placeholder model (cube for now, will be replaced with your 3D models)
+                    let geometry, material, mesh;
+                    
+                    if (index === 0) { // Game Dev - Controller
+                        geometry = new THREE.BoxGeometry(2, 1, 3);
+                        material = new THREE.MeshPhongMaterial({ 
+                            color: 0x4d84ff,
+                            shininess: 100
+                        });
+                    } else if (index === 1) { // Film - Camera
+                        geometry = new THREE.CylinderGeometry(0.8, 1, 2, 32);
+                        material = new THREE.MeshPhongMaterial({ 
+                            color: 0xff4d9d,
+                            shininess: 100
+                        });
+                    } else { // Tech - Laptop
+                        geometry = new THREE.BoxGeometry(3, 0.2, 2);
+                        material = new THREE.MeshPhongMaterial({ 
+                            color: 0x4dff84,
+                            shininess: 100
+                        });
+                    }
+                    
+                    mesh = new THREE.Mesh(geometry, material);
+                    scene.add(mesh);
+                    
+                    // Store mesh in scene for animation
+                    scene.userData.mesh = mesh;
+                    
+                    // Add hover event listeners
+                    container.addEventListener('mouseenter', () => {
+                        animationStates[container.id].rotating = false;
+                    });
+                    
+                    container.addEventListener('mouseleave', () => {
+                        animationStates[container.id].rotating = true;
+                    });
+                    
+                    // Handle click event
+                    container.parentElement.addEventListener('click', () => {
+                        // Here you would add code to handle what happens when a section is clicked
+                        console.log(`${container.id} was clicked`);
+                    });
+                    
+                    // Handle window resize
+                    window.addEventListener('resize', () => {
+                        const width = container.clientWidth;
+                        const height = container.clientHeight;
+                        
+                        cameras[index].aspect = width / height;
+                        cameras[index].updateProjectionMatrix();
+                        renderers[index].setSize(width, height);
+                    });
+                });
+        
+                // Device orientation for mobile stabilization
+                if (window.DeviceOrientationEvent) {
+                    window.addEventListener('deviceorientation', (event) => {
+                        // Alpha: rotation around z-axis
+                        // Beta: front-back motion
+                        // Gamma: left-right motion
+                        
+                        const alpha = event.alpha ? THREE.MathUtils.degToRad(event.alpha) : 0;
+                        const beta = event.beta ? THREE.MathUtils.degToRad(event.beta) : 0;
+                        const gamma = event.gamma ? THREE.MathUtils.degToRad(event.gamma) : 0;
+                        
+                        // Update all models to counter device movement
+                        scenes.forEach(scene => {
+                            if (scene.userData.mesh) {
+                                // Apply inverse rotation to stabilize the model
+                                scene.userData.mesh.rotation.x = -beta * 0.1;
+                                scene.userData.mesh.rotation.y = -gamma * 0.1;
+                                scene.userData.mesh.rotation.z = -alpha * 0.1;
+                            }
+                        });
+                    });
+                }
+        
+                // Animation loop
+                function animate() {
+                    requestAnimationFrame(animate);
+                    
+                    scenes.forEach((scene, index) => {
+                        const mesh = scene.userData.mesh;
+                        const containerId = containers[index].id;
+                        
+                        if (animationStates[containerId].rotating) {
+                            // Apply continuous rotation
+                            mesh.rotation.y += 0.01;
+                        }
+                        
+                        renderers[index].render(scene, cameras[index]);
+                    });
+                }
+                
+                animate();
+            </script>
+            </section>
+
+    
         <!-- Banner image container moved here -->
         <div class="banner-image-container">
             <img src="/api/placeholder/1600/400" alt="Banner placeholder" class="banner-image" id="banner-image">
             <div class="banner-overlay"></div>
         </div>
         
-        <!-- My Work section moved below the banner -->
+        <!-- My Work section moved below the banner 
         <h2 class="section-title">My Work</h2>
         
         <div class="placeholder-text">
             <p>Hello, I am Sourish. A VFX artist, Digital Filmmaker and Indie Game Developer.</p>
-        </div>
+        </div> -->
 
         <!-- YouTube Video Section -->
         <h2 class="section-title">Featured Video</h2>
