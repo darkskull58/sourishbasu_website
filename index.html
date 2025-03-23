@@ -65,15 +65,25 @@
         /* Navigation */
         nav {
             position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--primary-color);
+            padding: 10px 20px;
             z-index: 1000;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-container {
+            display: flex;
             gap: 10px;
-            background-color: var(--primary-color);
-            padding: 10px;
-            border-radius: 5px;
         }
 
         .nav-btn, .social-btn {
@@ -94,16 +104,6 @@
             transform: translateY(-3px);
         }
 
-        .social-container {
-            display: flex;
-            gap: 10px;
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-        }
-
         .social-btn {
             width: 40px;
             height: 40px;
@@ -112,6 +112,7 @@
             justify-content: center;
             border-radius: 50%;
             font-size: 18px;
+            padding: 0;
         }
 
         /* Sections */
@@ -397,7 +398,12 @@
 
             nav {
                 flex-direction: column;
-                align-items: center;
+                padding: 10px;
+            }
+            
+            .nav-menu, .social-container {
+                justify-content: center;
+                margin: 5px 0;
             }
         }
     </style>
@@ -405,18 +411,18 @@
 <body>
     <!-- Navigation -->
     <nav>
-        <button class="nav-btn" data-section="home">HOME</button>
-        <button class="nav-btn" data-section="work">MY WORK</button>
-        <button class="nav-btn" data-section="contact">CONTACT</button>
+        <div class="nav-menu">
+            <button class="nav-btn" data-section="home">HOME</button>
+            <button class="nav-btn" data-section="work">MY WORK</button>
+            <button class="nav-btn" data-section="contact">CONTACT</button>
+        </div>
+        <div class="social-container">
+            <a href="https://twitter.com" target="_blank" class="social-btn">T</a>
+            <a href="https://instagram.com" target="_blank" class="social-btn">I</a>
+            <a href="https://linkedin.com" target="_blank" class="social-btn">L</a>
+            <a href="https://github.com" target="_blank" class="social-btn">G</a>
+        </div>
     </nav>
-
-    <!-- Social Media Buttons -->
-    <div class="social-container">
-        <a href="https://twitter.com" target="_blank" class="social-btn">T</a>
-        <a href="https://instagram.com" target="_blank" class="social-btn">I</a>
-        <a href="https://linkedin.com" target="_blank" class="social-btn">L</a>
-        <a href="https://github.com" target="_blank" class="social-btn">G</a>
-    </div>
 
     <!-- Home Section -->
     <section id="home" class="active">
