@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sourish Designs</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <!-- Fixed GLTFLoader import path -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/loaders/GLTFLoader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three/examples/js/loaders/GLTFLoader.js"></script>
+    <style>
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: #121212;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .section-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 30px;
+        }
+
+        .section-card {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .section-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        .model-container {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            background: radial-gradient(circle, rgba(40,40,40,1) 0%, rgba(20,20,20,1) 100%);
+        }
+
+        .section-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+        p {
+            margin: 0;
+            font-size: 14px;
+            color: #aaaaaa;
+            line-height: 1.5;
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: transparent;
+            color: #4d84ff;
+            border: 2px solid #4d84ff;
+            border-radius: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #4d84ff;
+            color: #121212;
+        }
+
+        .page-title {
+            text-align: center;
+            padding: 40px 0;
+            font-size: 42px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #4d84ff, #ff4d9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .section-card {
+                width: 100%;
+                max-width: 340px;
+            }
+        }
+    
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #120024, #2a0050);
+            color: #e0d5ff;
+            overflow-x: hidden;
+        }
+
+        /* Navigation and Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(18, 0, 36, 0.7);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #e0d5ff;
+            text-shadow: 0 0 10px #8a2be2;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #e0d5ff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #a165ff;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #a165ff;
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Changed contact button to match other nav links */
+        .contact-btn {
+            color: #e0d5ff;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .contact-btn:hover {
+            color: #a165ff;
+        }
+
+        .social-icons {
+            display: flex;
+            align-items: center;
+            margin-left: 30px;
+        }
+
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            margin-left: 15px;
+            background-color: rgba(138, 43, 226, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+            color: #e0d5ff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            border: 1px solid rgba(138, 43, 226, 0.4);
+        }
+
+        .social-icon:hover {
+            background-color: rgba(138, 43, 226, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1002;
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: #e0d5ff;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        /* Banner with parallax - UPDATED to fill entire valley */
+        .banner {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding-top: 60px;
+        }
+
+        /* Parallax container now fills entire valley */
+        .parallax-container {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            transform-style: preserve-3d;
+            overflow: hidden;
+        }
+
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translateZ(0);
+            transition: transform 0.3s ease;
+        }
+
+        .parallax-fg {
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            object-fit: cover;
+            transform: translateZ(50px);
+            transition: transform 0.3s ease;
+        }
+
+        .banner-content {
+            position: absolute;
+            text-align: center;
+            z-index: 10;
+            padding: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+        }
+
+        .banner-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
+        }
+
+        .banner-content p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
+        }
+
+        /* Plateau section */
+        .plateau {
+            position: relative;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #2a0050, #3b0062);
+            box-shadow: 0 -50px 50px rgba(18, 0, 36, 0.6);
+            padding: 50px 0;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            z-index: 10;
+            border-top-left-radius: 50% 80px;
+            border-top-right-radius: 50% 80px;
+            margin-top: -80px;
+        }
+
+        /* Banner image moved to plateau section - ADDED */
+        .banner-image-container {
+            width: 90%;
+            height: 30vh;
+            margin: 40px auto 60px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        .banner-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .banner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(0deg, rgba(42, 0, 80, 0.8) 0%, rgba(18, 0, 36, 0.4) 100%);
+        }
+
+        .section-title {
+            text-align: center;
+            padding: 30px;
+            font-size: 2.5rem;
+            color: #d4c1ff;
+            text-shadow: 0 0 15px #8a2be2;
+            animation: glow 2s infinite alternate;
+        }
+
+        .placeholder-text {
+            text-align: center;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #d4c1ff;
+            background: rgba(138, 43, 226, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 50px 0;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 30px;
+            width: 80%;
+            margin: 40px auto;
+        }
+
+        .youtube-container {
+            position: relative;
+            width: 71%;
+            height: 0;
+            padding-bottom: 40.25%;
+            margin: 20px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            max-width: 1120px;
+        }
+
+        .youtube-thumbnail {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background-color: rgba(138, 43, 226, 0.8);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .play-button::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 20px solid transparent;
+            border-left: 30px solid white;
+            border-bottom: 20px solid transparent;
+            margin-left: 7px;
+        }
+
+        .youtube-container:hover .play-button {
+            background-color: rgba(173, 88, 255, 0.9);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .youtube-container:hover .youtube-thumbnail {
+            transform: scale(1.05);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0 50px;
+            position: relative;
+            background: linear-gradient(to top, #1a0034, #2a0050);
+            border-top-left-radius: 50% 80px;
+            border-top-right-radius: 50% 80px;
+            margin-top: -80px;
+            box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(42, 0, 80, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            flex: 1;
+            min-width: 250px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #6a11cb, #8a2be2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .contact-item h3 {
+            margin-bottom: 10px;
+            color: #d4c1ff;
+        }
+
+        .contact-item p, .contact-item a {
+            color: #b89dff;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: #e0d5ff;
+            text-decoration: underline;
+        }
+
+        /* Animations and effects */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #8a2be2, 0 0 10px #8a2be2; }
+            to { text-shadow: 0 0 15px #8a2be2, 0 0 30px #8a2be2; }
+        }
+
+        .transition-element {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%233b0062' fill-opacity='1' d='M0,64L48,96C96,128,192,192,288,213.3C384,235,480,213,576,197.3C672,181,768,171,864,181.3C960,192,1056,224,1152,224C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            pointer-events: none;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 5s infinite;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        footer {
+            padding: 30px;
+            text-align: center;
+            background: linear-gradient(to right, #250046, #3b0062);
+            color: #d4c1ff;
+            font-size: 0.9rem;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive design */
+        @media (max-width: 991px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 250px;
+                height: 100%;
+                background: rgba(18, 0, 36, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: flex-start; /* Changed to fix overlapping */
+                align-items: center;
+                z-index: 1001;
+                transition: right 0.3s ease;
+                padding: 80px 0 140px; /* Increased bottom padding */
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 15px 0;
+            }
+
+            .social-icons {
+                position: absolute; /* Fixed overlapping by positioning at bottom */
+                bottom: 40px;
+                left: 0;
+                width: 100%;
+                justify-content: center;
+                margin-left: 0;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+
+            .banner-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .banner-content p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+
+            /* Adjusted parallax and banner for mobile */
+            .parallax-container {
+                height: 100vh;
+            }
+            
+            .banner-image-container {
+                height: 20vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-item {
+                flex-basis: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Stars background -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="logo">Sourish Designs</div>
+        <div class="nav-container">
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#portfolio" class="nav-link">My Work</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">FB</a>
+                        <a href="#" class="social-icon">IG</a>
+                        <a href="#" class="social-icon">TW</a>
+                        <a href="#" class="social-icon">YT</a>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Banner section with full parallax effect -->
+    <section class="banner" id="home">
+        <!-- Parallax container now fills entire valley -->
+        <div class="parallax-container" id="parallax-container">
+            <img src="assets\parallax\backG.png" alt="Background placeholder" class="parallax-bg" id="parallax-bg">
+            <img src="assets\parallax\foreG.png" alt="Foreground placeholder" class="parallax-fg" id="parallax-fg">
+            
+            <div class="banner-content">
+                <h1>Designs by Sourish</h1>
+                <p>Journey through the cosmic realm</p>
+            </div>
+        </div>
+        
+        <div class="transition-element"></div>
+    </section>
+
+
+    <!-- Plateau section with banner moved up -->
+    <section class="plateau" id="portfolio">
+
+        <section> <!-- 3D section -->
+            <!--div class="loader">
+                <div class="loader-content">
+                    <div class="spinner"></div>
+                    <p>Loading 3D Models...</p>
+                </div>
+            </div -->
+        
+            <!--div class="particles" id="particles"></div-->
+            
+            <h1 class="page-title">Explore My Work</h1>
+            
+            <div class="section-container">
+                <!-- Game Dev Section -->
+                <div class="section-card" id="gamedev-card">
+                    <div class="glow"></div>
+                    <div class="model-container" id="gamedev-model"></div>
+                    <div class="section-info">
+                        <h2>Game Development</h2>
+                        <p>Explore my game development projects, tools, and design philosophies.</p>
+                        <a href="#" class="cta-button">Discover Games</a>
+                    </div>
+                </div>
+                
+                <!-- Filmmaking Section -->
+                <div class="section-card" id="film-card">
+                    <div class="glow"></div>
+                    <div class="model-container" id="film-model"></div>
+                    <div class="section-info">
+                        <h2>Filmmaking</h2>
+                        <p>View my cinematic works, from short films to visual effects and cinematography.</p>
+                        <a href="#" class="cta-button">Watch Films</a>
+                    </div>
+                </div>
+                
+                <!-- Tech Section -->
+                <div class="section-card" id="tech-card">
+                    <div class="glow"></div>
+                    <div class="model-container" id="tech-model"></div>
+                    <div class="section-info">
+                        <h2>Technology</h2>
+                        <p>Check out my tech projects, software developments, and innovative solutions.</p>
+                        <a href="#" class="cta-button">See Tech</a>
+                    </div>
+                </div>
+            </div>
+        
+            <script>
+                // Initialize Three.js scenes
+                const scenes = [];
+                const cameras = [];
+                const renderers = [];
+                const models = [];
+                let particleSystem;
+                let modelsLoaded = 0;
+                const totalModels = 3;
+                
+                // Model paths
+                const modelPaths = {
+                    'gamedev-model': 'assets/models/controller.glb',
+                    'film-model': 'assets/models/camera.glb',
+                    'tech-model': 'assets/models/bot.glb'
+                };
+                
+                // Container elements
+                const containers = [
+                    document.getElementById('gamedev-model'),
+                    document.getElementById('film-model'),
+                    document.getElementById('tech-model')
+                ];
+        
+                // Model configurations
+                const modelConfigs = {
+                    'gamedev-model': {
+                        position: { x: 0, y: 0, z: 0 },
+                        rotation: { x: 0, y: 0, z: 0 },
+                        scale: 1.5,
+                        color: 0x7b57ff
+                    },
+                    'film-model': {
+                        position: { x: 0, y: -0.5, z: 0 },
+                        rotation: { x: 0, y: 0, z: 0 },
+                        scale: 1.5,
+                        color: 0xff57b9
+                    },
+                    'tech-model': {
+                        position: { x: 0, y: 0, z: 0 },
+                        rotation: { x: 0, y: 0, z: 0 },
+                        scale: 1.5,
+                        color: 0x57b9ff
+                    }
+                };
+        
+                // Device orientation variables
+                let gyroEnabled = false;
+                let deviceAlpha = 0;
+                let deviceBeta = 0;
+                let deviceGamma = 0;
+                let initialOrientation = {
+                    alpha: null,
+                    beta: null,
+                    gamma: null
+                };
+        
+                // Create a loader instance - FIXED: Using module loader pattern 
+                //const loader;
+                
+                // Check if GLTFLoader is available
+                function setupLoaders() {
+                    // Fix for GLTFLoader
+                    if (typeof THREE.GLTFLoader === 'function') {
+                        loader = new THREE.GLTFLoader();
+                    } else {
+                        console.warn("THREE.GLTFLoader not found. Attempting to use a different approach.");
+                        
+                        // Alternative: direct script loading
+                        const script = document.createElement('script');
+                        script.src = "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.min.js";
+                        script.onload = () => {
+                            if (typeof THREE.GLTFLoader === 'function') {
+                                const loader = new THREE.GLTFLoader();
+                                loadModels();
+                            } else {
+                                createFallbackModels();
+                            }
+                        };
+                        script.onerror = () => {
+                            createFallbackModels();
+                        };
+                        document.head.appendChild(script);
+                        return false;
+                    }
+                    
+                    return true;
+                }
+                
+                // Create fallback models if GLTFLoader fails
+                function createFallbackModels() {
+                    console.warn("Using fallback models instead of GLB files");
+                    
+                    containers.forEach((container, index) => {
+                        const scene = scenes[index];
+                        const config = modelConfigs[container.id];
+                        
+                        let geometry;
+                        
+                        // Create different geometry for each card
+                        if (index === 0) { // Game Dev
+                            geometry = new THREE.BoxGeometry(2, 1, 3);
+                        } else if (index === 1) { // Film
+                            geometry = new THREE.CylinderGeometry(0.8, 1, 2, 32);
+                        } else { // Tech
+                            geometry = new THREE.TorusKnotGeometry(1, 0.3, 64, 8);
+                        }
+                        
+                        const material = new THREE.MeshPhongMaterial({ 
+                            color: config.color,
+                            shininess: 30,
+                            specular: 0x444444
+                        });
+                        
+                        const mesh = new THREE.Mesh(geometry, material);
+                        mesh.position.set(config.position.x, config.position.y, config.position.z);
+                        
+                        scene.add(mesh);
+                        models[index] = mesh;
+                        
+                        // Update loaded count
+                        modelsLoaded++;
+                    });
+                    
+                    // Hide loader when all fallback models are created
+                    if (modelsLoaded === totalModels) {
+                        setTimeout(() => {
+                            document.querySelector('.loader').style.opacity = 0;
+                            setTimeout(() => {
+                                document.querySelector('.loader').style.display = 'none';
+                            }, 500);
+                        }, 500);
+                    }
+                }
+        
+                // Setup background particles
+                function setupParticles() {
+                    const particleContainer = document.getElementById('particles');
+                    const particleScene = new THREE.Scene();
+                    const particleCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                    particleCamera.position.z = 20;
+                    
+                    const particleRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                    particleRenderer.setSize(window.innerWidth, window.innerHeight);
+                    particleContainer.appendChild(particleRenderer.domElement);
+                    
+                    // Create particles
+                    const particlesGeometry = new THREE.BufferGeometry();
+                    const particlesCount = 1000;
+                    const posArray = new Float32Array(particlesCount * 3);
+                    
+                    for(let i = 0; i < particlesCount * 3; i++) {
+                        posArray[i] = (Math.random() - 0.5) * 100;
+                    }
+                    
+                    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+                    
+                    const particlesMaterial = new THREE.PointsMaterial({
+                        size: 0.15,
+                        transparent: true,
+                        color: 0x7b57ff,
+                        blending: THREE.AdditiveBlending,
+                        sizeAttenuation: true
+                    });
+                    
+                    particleSystem = new THREE.Points(particlesGeometry, particlesMaterial);
+                    particleScene.add(particleSystem);
+                    
+                    function animateParticles() {
+                        requestAnimationFrame(animateParticles);
+                        
+                        particleSystem.rotation.x += 0.0002;
+                        particleSystem.rotation.y += 0.0003;
+                        
+                        // Responsive resize
+                        if (window.innerWidth !== particleCamera.aspect * window.innerHeight) {
+                            particleCamera.aspect = window.innerWidth / window.innerHeight;
+                            particleCamera.updateProjectionMatrix();
+                            particleRenderer.setSize(window.innerWidth, window.innerHeight);
+                        }
+                        
+                        particleRenderer.render(particleScene, particleCamera);
+                    }
+                    
+                    animateParticles();
+                    
+                    // Handle window resize for particles
+                    window.addEventListener('resize', () => {
+                        particleCamera.aspect = window.innerWidth / window.innerHeight;
+                        particleCamera.updateProjectionMatrix();
+                        particleRenderer.setSize(window.innerWidth, window.innerHeight);
+                    });
+                }
+        
+                // Setup scenes
+                function setupScenes() {
+                    containers.forEach((container, index) => {
+                        // Create scene
+                        const scene = new THREE.Scene();
+                        scenes.push(scene);
+                        
+                        // Create camera
+                        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+                        camera.position.z = 5;
+                        cameras.push(camera);
+                        
+                        // Create renderer with transparent background
+                        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                        renderer.setPixelRatio(window.devicePixelRatio);
+                        renderer.setSize(container.clientWidth, container.clientHeight);
+                        renderer.setClearColor(0x000000, 0);
+                        container.appendChild(renderer.domElement);
+                        renderers.push(renderer);
+                        
+                        // Add lighting
+                        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+                        scene.add(ambientLight);
+                        
+                        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+                        directionalLight.position.set(0, 1, 1);
+                        scene.add(directionalLight);
+                        
+                        // Add point lights for dramatic effect
+                        const pointLight1 = new THREE.PointLight(0x7b57ff, 1, 10);
+                        pointLight1.position.set(2, 1, 3);
+                        scene.add(pointLight1);
+                        
+                        const pointLight2 = new THREE.PointLight(0xff57b9, 1, 10);
+                        pointLight2.position.set(-2, -1, 3);
+                        scene.add(pointLight2);
+                        
+                        // Add hover event listeners
+                        container.addEventListener('mouseenter', () => {
+                            document.body.style.cursor = 'pointer';
+                            
+                            // Animate model on hover
+                            if (models[index]) {
+                                gsap.to(models[index].rotation, {
+                                    y: models[index].rotation.y + Math.PI * 2,
+                                    duration: 1.5,
+                                    ease: "power2.inOut"
+                                });
+                                
+                                gsap.to(models[index].position, {
+                                    y: models[index].position.y + 0.2,
+                                    duration: 0.5,
+                                    ease: "power2.inOut",
+                                    yoyo: true,
+                                    repeat: 1
+                                });
+                            }
+                        });
+                        
+                        container.addEventListener('mouseleave', () => {
+                            document.body.style.cursor = 'default';
+                        });
+                        
+                        // Handle click event
+                        container.parentElement.addEventListener('click', () => {
+                            // Animate model on click
+                            if (models[index]) {
+                                gsap.to(models[index].scale, {
+                                    x: models[index].scale.x * 1.2,
+                                    y: models[index].scale.y * 1.2,
+                                    z: models[index].scale.z * 1.2,
+                                    duration: 0.3,
+                                    ease: "power2.inOut",
+                                    yoyo: true,
+                                    repeat: 1
+                                });
+                                
+                                console.log(`${container.id} was clicked`);
+                            }
+                        });
+                        
+                        // Setup OrbitControls if available
+                        if (typeof THREE.OrbitControls === 'function') {
+                            const controls = new THREE.OrbitControls(cameras[index], renderers[index].domElement);
+                            controls.enableZoom = false;
+                            controls.enablePan = false;
+                            controls.enableDamping = true;
+                            controls.dampingFactor = 0.05;
+                            controls.rotateSpeed = 0.5;
+                            scenes[index].userData.controls = controls;
+                        }
+                    });
+                }
+        
+                // Load GLB models
+                function loadModels() {
+                    if (!loader) {
+                        createFallbackModels();
+                        return;
+                    }
+                    
+                    containers.forEach((container, index) => {
+                        const modelPath = modelPaths[container.id];
+                        const config = modelConfigs[container.id];
+                        
+                        loader.load(
+                            modelPath,
+                            function(gltf) {
+                                const model = gltf.scene;
+                                
+                                // Apply model configurations
+                                model.position.set(config.position.x, config.position.y, config.position.z);
+                                model.rotation.set(config.rotation.x, config.rotation.y, config.rotation.z);
+                                model.scale.set(config.scale, config.scale, config.scale);
+                                
+                                // Apply color tint to the model materials
+                                /*model.traverse((child) => {
+                                    if (child.isMesh && !child.userData.isGlowMesh) {
+                                        // Create a new material with the configured color
+                                        child.material = new THREE.MeshPhongMaterial({
+                                            color: config.color,
+                                            shininess: 30,
+                                            specular: 0x444444,
+                                            emissive: new THREE.Color(config.color).multiplyScalar(0.1)
+                                        });
+        
+                                        // Add glow effect
+                                        const glowMaterial = new THREE.MeshBasicMaterial({
+                                            color: config.color,
+                                            transparent: true,
+                                            opacity: 0.2,
+                                            side: THREE.BackSide
+                                        });
+        
+                                        const glowMesh = new THREE.Mesh(child.geometry.clone(), glowMaterial);
+                                        glowMesh.scale.multiplyScalar(1.05);
+                                        glowMesh.userData.isGlowMesh = true; // Mark as glow mesh to avoid recursion
+                                        child.add(glowMesh);
+                                    } 
+                                }); */
+        
+                                
+                                scenes[index].add(model);
+                                models[index] = model;
+                                
+                                // Track loaded models
+                                modelsLoaded++;
+                                
+                                // Hide loader when all models are loaded
+                                if (modelsLoaded === totalModels) {
+                                    setTimeout(() => {
+                                        document.querySelector('.loader').style.opacity = 0;
+                                        setTimeout(() => {
+                                            document.querySelector('.loader').style.display = 'none';
+                                        }, 500);
+                                    }, 500);
+                                }
+                            },
+                            (xhr) => {
+                                console.log(`${container.id} ${Math.floor(xhr.loaded / xhr.total * 100)}% loaded`);
+                            },
+                            function(error) {
+                                console.error(`Error loading model ${container.id}:`, error);
+                                
+                                // Create fallback geometry if model fails to load
+                                let fallbackGeometry;
+                                
+                                if (index === 0) { // Game Dev
+                                    fallbackGeometry = new THREE.BoxGeometry(2, 1, 3);
+                                } else if (index === 1) { // Film
+                                    fallbackGeometry = new THREE.CylinderGeometry(0.8, 1, 2, 32);
+                                } else { // Tech
+                                    fallbackGeometry = new THREE.TorusKnotGeometry(1, 0.3, 64, 8);
+                                }
+                                
+                                const fallbackMaterial = new THREE.MeshPhongMaterial({ 
+                                    color: config.color,
+                                    shininess: 100
+                                });
+                                const fallbackMesh = new THREE.Mesh(fallbackGeometry, fallbackMaterial);
+                                scenes[index].add(fallbackMesh);
+                                models[index] = fallbackMesh;
+                                
+                                modelsLoaded++;
+                                
+                                // Hide loader when all fallback models are created
+                                if (modelsLoaded === totalModels) {
+                                    setTimeout(() => {
+                                        document.querySelector('.loader').style.opacity = 0;
+                                        setTimeout(() => {
+                                            document.querySelector('.loader').style.display = 'none';
+                                        }, 500);
+                                    }, 500);
+                                }
+                            }
+                        );
+                    });
+                }
+        
+                // Device orientation handler with calibration
+                function handleDeviceOrientation(event) {
+                    deviceAlpha = event.alpha ? THREE.MathUtils.degToRad(event.alpha) : 0;
+                    deviceBeta = event.beta ? THREE.MathUtils.degToRad(event.beta) : 0;
+                    deviceGamma = event.gamma ? THREE.MathUtils.degToRad(event.gamma) : 0;
+                    
+                    // Initialize reference orientation on first reading
+                    if (initialOrientation.alpha === null) {
+                        initialOrientation.alpha = deviceAlpha;
+                        initialOrientation.beta = deviceBeta;
+                        initialOrientation.gamma = deviceGamma;
+                    }
+                    
+                    // Calculate relative changes for more natural movement
+                    const deltaAlpha = deviceAlpha - initialOrientation.alpha;
+                    const deltaBeta = deviceBeta - initialOrientation.beta;
+                    const deltaGamma = deviceGamma - initialOrientation.gamma;
+                    
+                    // Apply to models with high sensitivity
+                    models.forEach((model) => {
+                        if (model) {
+                            // Use more sensitive values for mobile
+                            gsap.to(model.rotation, {
+                                x: -deltaBeta * 0.5,  // Increased sensitivity
+                                y: -deltaGamma * 0.5, // Increased sensitivity
+                                z: -deltaAlpha * 0.1,
+                                duration: 0.1,        // Quick response
+                                ease: "power1.out"
+                            });
+                        }
+                    });
+                }
+        
+                // Setup device orientation
+                function setupDeviceOrientation() {
+                    if (window.DeviceOrientationEvent) {
+                        // Request permission for iOS 13+ devices
+                        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                            // Create a button for iOS permission
+                            const permissionButton = document.createElement('button');
+                            permissionButton.innerText = 'Enable 3D Motion';
+                            permissionButton.style.position = 'fixed';
+                            permissionButton.style.top = '10px';
+                            permissionButton.style.left = '50%';
+                            permissionButton.style.transform = 'translateX(-50%)';
+                            permissionButton.style.zIndex = '1000';
+                            permissionButton.style.padding = '10px 20px';
+                            permissionButton.style.background = 'rgba(123, 87, 255, 0.8)';
+                            permissionButton.style.color = 'white';
+                            permissionButton.style.border = 'none';
+                            permissionButton.style.borderRadius = '30px';
+                            permissionButton.style.fontWeight = 'bold';
+                            
+                            permissionButton.addEventListener('click', () => {
+                                DeviceOrientationEvent.requestPermission()
+                                    .then(permissionState => {
+                                        if (permissionState === 'granted') {
+                                            window.addEventListener('deviceorientation', handleDeviceOrientation, true);
+                                            gyroEnabled = true;
+                                            permissionButton.remove();
+                                        }
+                                    })
+                                    .catch(console.error);
+                            });
+                            
+                            document.body.appendChild(permissionButton);
+                        } else {
+                            // For non-iOS devices
+                            window.addEventListener('deviceorientation', handleDeviceOrientation, true);
+                            gyroEnabled = true;
+                        }
+                    }
+                }
+        
+                // Animation loop
+                function animate() {
+                    requestAnimationFrame(animate);
+                    
+                    scenes.forEach((scene, index) => {
+                        // Update controls if available
+                        if (scene.userData.controls) {
+                            scene.userData.controls.update();
+                        }
+                        
+                        // Slow automatic rotation if gyro is not enabled
+                        if (!gyroEnabled && models[index]) {
+                            models[index].rotation.y += 0.005;
+                        }
+                        
+                        // Render scene
+                        renderers[index].render(scene, cameras[index]);
+                    });
+                }
+                
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    containers.forEach((container, index) => {
+                        const width = container.clientWidth;
+                        const height = container.clientHeight;
+                        
+                        cameras[index].aspect = width / height;
+                        cameras[index].updateProjectionMatrix();
+                        renderers[index].setSize(width, height);
+                    });
+                });
+                
+                // Add pulse animation to buttons
+                function setupButtonAnimations() {
+                    const buttons = document.querySelectorAll('.cta-button');
+                    
+                    buttons.forEach(button => {
+                        button.addEventListener('mouseenter', () => {
+                            gsap.to(button, {
+                                scale: 1.05,
+                                duration: 0.3,
+                                ease: "power2.out"
+                            });
+                        });
+                        
+                        button.addEventListener('mouseleave', () => {
+                            gsap.to(button, {
+                                scale: 1,
+                                duration: 0.3,
+                                ease: "power2.out"
+                            });
+                        });
+                    });
+                }
+                
+                // Initialize everything
+                function init() {
+                    setupScenes();
+                    setupParticles();
+                    
+                    // Setup loaders and load models
+                    if (setupLoaders()) {
+                        loadModels();
+                    }
+                    
+                    setupDeviceOrientation();
+                    setupButtonAnimations();
+                    animate();
+                }
+                
+                // Start initialization when DOM is loaded
+                document.addEventListener('DOMContentLoaded', init);
+            </script>
+            </section>
+
+    
+        <!-- Banner image container moved here -->
+        <div class="banner-image-container">
+            <img src="/api/placeholder/1600/400" alt="Banner placeholder" class="banner-image" id="banner-image">
+            <div class="banner-overlay"></div>
+        </div>
+        
+        <!-- My Work section moved below the banner 
+        <h2 class="section-title">My Work</h2>
+        
+        <div class="placeholder-text">
+            <p>Hello, I am Sourish. A VFX artist, Digital Filmmaker and Indie Game Developer.</p>
+        </div> -->
+
+        <!-- YouTube Video Section -->
+        <h2 class="section-title">Featured Video</h2>
+        <div class="youtube-container">
+            <img src="assets\Video Thumbnails\Arjuna Vs Karna.png" alt="YouTube Thumbnail" class="youtube-thumbnail">
+            <a href="https://www.youtube.com/watch?v=0UCMIbde49s" target="_blank" class="play-button"></a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">Get in Touch</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email</h3>
+                    <a href="mailto:your.email@example.com">sourish.basu@example.com</a>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <h3>Phone</h3>
+                    <p>+91 00000-11111</p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <h3>Location</h3>
+                    <p>India</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Sourish Basu</p>
+    </footer>
+
+    <script>
+        // Create stars
+        const starsContainer = document.getElementById('stars');
+        const numberOfStars = 200;
+
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 5}s`;
+            star.style.width = `${Math.random() * 3}px`;
+            star.style.height = star.style.width;
+            starsContainer.appendChild(star);
+        }
+
+        // Parallax effect for mouse movement - increased sensitivity
+        const parallaxContainer = document.getElementById('parallax-container');
+        const parallaxBg = document.getElementById('parallax-bg');
+        const parallaxFg = document.getElementById('parallax-fg');
+        const bannerImage = document.getElementById('banner-image');
+
+        // Mouse movement parallax with increased sensitivity
+        parallaxContainer.addEventListener('mousemove', (e) => {
+            const containerRect = parallaxContainer.getBoundingClientRect();
+            const mouseX = (e.clientX - containerRect.left) / containerRect.width - 0.5;
+            const mouseY = (e.clientY - containerRect.top) / containerRect.height - 0.5;
+            
+            // Increased sensitivity by doubling the multipliers
+            parallaxBg.style.transform = `translateX(${mouseX * 60}px) translateY(${mouseY * 60}px)`;
+            parallaxFg.style.transform = `translateX(${mouseX * 120}px) translateY(${mouseY * 120}px) translateZ(50px)`;
+        });
+
+        // Reset when mouse leaves
+        parallaxContainer.addEventListener('mouseleave', () => {
+            parallaxBg.style.transform = 'translateX(0) translateY(0)';
+            parallaxFg.style.transform = 'translateX(0) translateY(0) translateZ(50px)';
+        });
+
+        // Banner subtle movement
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX / window.innerWidth - 0.5;
+            const mouseY = e.clientY / window.innerHeight - 0.5;
+            
+            bannerImage.style.transform = `scale(1.05) translateX(${mouseX * 20}px) translateY(${mouseY * 20}px)`;
+        });
+
+        // Gyroscope for mobile devices with increased sensitivity
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener('deviceorientation', handleOrientation);
+        }
+
+        function handleOrientation(event) {
+            // Check if we have the data we need
+            if (event.beta === null || event.gamma === null) return;
+            
+            // Beta is front-to-back tilt in degrees, where front is positive
+            // Gamma is left-to-right tilt in degrees, where right is positive
+            const beta = event.beta;  // Range: -180 to 180
+            const gamma = event.gamma; // Range: -90 to 90
+            
+            // Normalize the values with increased sensitivity
+            const normalizedBeta = (beta / 30).toFixed(2);  // Increased sensitivity
+            const normalizedGamma = (gamma / 30).toFixed(2); // Increased sensitivity
+            
+            // Apply the parallax effect with increased multipliers
+            parallaxBg.style.transform = `translateX(${normalizedGamma * -40}px) translateY(${normalizedBeta * -40}px)`;
+            parallaxFg.style.transform = `translateX(${normalizedGamma * -80}px) translateY(${normalizedBeta * -80}px) translateZ(50px)`;
+            
+            // Banner effect
+            bannerImage.style.transform = `scale(1.05) translateX(${normalizedGamma * -20}px) translateY(${normalizedBeta * -20}px)`;
+        }
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70, // Adjust for header height
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

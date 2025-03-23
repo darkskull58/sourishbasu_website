@@ -3,1040 +3,703 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sourish Designs</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <title>Comic Portfolio</title>
     <style>
-        
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            background: #121212;
-            color: white;
-            overflow-x: hidden;
+        :root {
+            --primary-color: #111;
+            --secondary-color: #fff;
+            --accent-color: #888;
+            --transition-speed: 0.3s;
         }
 
-        .section-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            padding: 50px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            gap: 30px;
-        }
-
-        .section-card {
-            position: relative;
-            width: 300px;
-            height: 400px;
-            background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-
-        .section-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
-        }
-
-        .model-container {
-            width: 100%;
-            height: 250px;
-            position: relative;
-            background: radial-gradient(circle, rgba(40,40,40,1) 0%, rgba(20,20,20,1) 100%);
-        }
-
-        .section-info {
-            padding: 20px;
-            text-align: center;
-        }
-
-        h2 {
-            margin: 0 0 10px 0;
-            font-size: 24px;
-            color: #ffffff;
-        }
-
-        p {
-            margin: 0;
-            font-size: 14px;
-            color: #aaaaaa;
-            line-height: 1.5;
-        }
-
-        .cta-button {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 8px 20px;
-            background: transparent;
-            color: #4d84ff;
-            border: 2px solid #4d84ff;
-            border-radius: 30px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .cta-button:hover {
-            background: #4d84ff;
-            color: #121212;
-        }
-
-        .page-title {
-            text-align: center;
-            padding: 40px 0;
-            font-size: 42px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background: linear-gradient(90deg, #4d84ff, #ff4d9d);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 0;
-        }
-
-        @media (max-width: 768px) {
-            .section-card {
-                width: 100%;
-                max-width: 340px;
-            }
-        }
-    
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Courier New', monospace;
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #120024, #2a0050);
-            color: #e0d5ff;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
             overflow-x: hidden;
-        }
-
-        /* Navigation and Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            background: rgba(18, 0, 36, 0.7);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #e0d5ff;
-            text-shadow: 0 0 10px #8a2be2;
-        }
-
-        .nav-container {
-            display: flex;
-            align-items: center;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin: 0 15px;
-        }
-
-        nav ul li a {
-            color: #e0d5ff;
-            text-decoration: none;
-            font-size: 1.1rem;
-            position: relative;
-            padding: 5px 0;
-            transition: all 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: #a165ff;
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: #a165ff;
-            transition: width 0.3s;
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        /* Changed contact button to match other nav links */
-        .contact-btn {
-            color: #e0d5ff;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .contact-btn:hover {
-            color: #a165ff;
-        }
-
-        .social-icons {
-            display: flex;
-            align-items: center;
-            margin-left: 30px;
-        }
-
-        .social-icon {
-            width: 35px;
-            height: 35px;
-            margin-left: 15px;
-            background-color: rgba(138, 43, 226, 0.2);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.3s;
-            color: #e0d5ff;
-            text-decoration: none;
-            font-size: 1.2rem;
-            border: 1px solid rgba(138, 43, 226, 0.4);
-        }
-
-        .social-icon:hover {
-            background-color: rgba(138, 43, 226, 0.5);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 21px;
-            cursor: pointer;
-            z-index: 1002;
-        }
-
-        .menu-toggle span {
-            display: block;
-            height: 3px;
-            width: 100%;
-            background-color: #e0d5ff;
-            border-radius: 3px;
-            transition: all 0.3s;
-        }
-
-        /* Banner with parallax - UPDATED to fill entire valley */
-        .banner {
-            position: relative;
-            height: 100vh;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            padding-top: 60px;
-        }
-
-        /* Parallax container now fills entire valley */
-        .parallax-container {
-            position: relative;
-            height: 100vh;
-            width: 100%;
-            transform-style: preserve-3d;
-            overflow: hidden;
-        }
-
-        .parallax-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transform: translateZ(0);
-            transition: transform 0.3s ease;
-        }
-
-        .parallax-fg {
-            position: absolute;
-            top: -20%;
-            left: -20%;
-            width: 140%;
-            height: 140%;
-            object-fit: cover;
-            transform: translateZ(50px);
-            transition: transform 0.3s ease;
-        }
-
-        .banner-content {
-            position: absolute;
-            text-align: center;
-            z-index: 10;
-            padding: 20px;
-            animation: fadeIn 1.5s ease-in-out;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-        }
-
-        .banner-content h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
-        }
-
-        .banner-content p {
-            font-size: 1.5rem;
-            max-width: 800px;
-            margin: 0 auto;
-            text-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
-        }
-
-        /* Plateau section */
-        .plateau {
-            position: relative;
-            min-height: 100vh;
-            background: linear-gradient(to bottom, #2a0050, #3b0062);
-            box-shadow: 0 -50px 50px rgba(18, 0, 36, 0.6);
-            padding: 50px 0;
-            perspective: 1000px;
-            transform-style: preserve-3d;
-            z-index: 10;
-            border-top-left-radius: 50% 80px;
-            border-top-right-radius: 50% 80px;
-            margin-top: -80px;
-        }
-
-        /* Banner image moved to plateau section - ADDED */
-        .banner-image-container {
-            width: 90%;
-            height: 30vh;
-            margin: 40px auto 60px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-            position: relative;
-        }
-
-        .banner-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .banner-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(0deg, rgba(42, 0, 80, 0.8) 0%, rgba(18, 0, 36, 0.4) 100%);
-        }
-
-        .section-title {
-            text-align: center;
-            padding: 30px;
-            font-size: 2.5rem;
-            color: #d4c1ff;
-            text-shadow: 0 0 15px #8a2be2;
-            animation: glow 2s infinite alternate;
-        }
-
-        .placeholder-text {
-            text-align: center;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            font-size: 1.2rem;
             line-height: 1.6;
-            color: #d4c1ff;
-            background: rgba(138, 43, 226, 0.1);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        /* Portfolio Section */
-        .portfolio {
-            padding: 50px 0;
-        }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            grid-gap: 30px;
-            width: 80%;
-            margin: 40px auto;
-        }
-
-        .youtube-container {
+        /* Comic Effect Styles */
+        .comic-border {
+            border: 3px solid var(--primary-color);
             position: relative;
-            width: 71%;
-            height: 0;
-            padding-bottom: 40.25%;
-            margin: 20px auto;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            max-width: 1120px;
         }
 
-        .youtube-thumbnail {
+        .comic-border::before {
+            content: '';
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 1px solid var(--primary-color);
+            z-index: -1;
+        }
+
+        .comic-text {
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .splash {
+            position: absolute;
+            background: var(--primary-color);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: splash 0.6s ease-out;
+        }
+
+        @keyframes splash {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(1); opacity: 0; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            background-color: var(--primary-color);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .nav-btn, .social-btn {
+            background: none;
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+            padding: 5px 15px;
+            cursor: pointer;
+            transition: var(--transition-speed);
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn:hover, .social-btn:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .social-container {
+            display: flex;
+            gap: 10px;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 18px;
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            padding: 100px 20px;
+            display: none;
+        }
+
+        section.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Home Section */
+        #home {
+            position: relative;
+        }
+
+        .parallax-banner {
+            width: 100%;
+            height: 70vh;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+
+        .banner-layer {
+            position: absolute;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            transition: all 0.5s;
+            top: 0;
+            left: 0;
+            background-size: cover;
+            background-position: center;
         }
 
-        .play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            background-color: rgba(138, 43, 226, 0.8);
-            border-radius: 50%;
+        .layer-1 {
+            background-image: url('/api/placeholder/1200/800');
+            filter: grayscale(100%) contrast(1.5);
+            z-index: 1;
+        }
+
+        .layer-2 {
+            background-image: url('/api/placeholder/1200/800');
+            filter: grayscale(100%) contrast(1.2);
+            opacity: 0.6;
+            z-index: 2;
+        }
+
+        .layer-3 {
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            z-index: 3;
+        }
+
+        .title {
+            font-size: 4rem;
+            text-align: center;
+            text-transform: uppercase;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 20px;
+            transform: rotate(-5deg);
+            box-shadow: 10px 10px 0 rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* Work Section */
+        #work {
+            background-color: var(--secondary-color);
+        }
+
+        .islands-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 50px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .island {
+            width: 300px;
+            height: 350px;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .island-content {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        .play-button::before {
-            content: '';
-            width: 0;
-            height: 0;
-            border-top: 20px solid transparent;
-            border-left: 30px solid white;
-            border-bottom: 20px solid transparent;
-            margin-left: 7px;
+        .island:hover .island-content {
+            transform: rotateY(180deg);
         }
 
-        .youtube-container:hover .play-button {
-            background-color: rgba(173, 88, 255, 0.9);
-            transform: translate(-50%, -50%) scale(1.1);
+        .island-front, .island-back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
         }
 
-        .youtube-container:hover .youtube-thumbnail {
-            transform: scale(1.05);
+        .island-back {
+            transform: rotateY(180deg);
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+        }
+
+        .island-front {
+            background-color: var(--secondary-color);
+            border: 5px solid var(--primary-color);
+        }
+
+        .model-container {
+            width: 150px;
+            height: 150px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .island-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .island-desc {
+            font-size: 0.9rem;
+        }
+
+        .view-btn {
+            margin-top: 20px;
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 8px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition-speed);
+        }
+
+        .view-btn:hover {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            transform: translateY(-3px);
         }
 
         /* Contact Section */
-        .contact {
-            padding: 100px 0 50px;
-            position: relative;
-            background: linear-gradient(to top, #1a0034, #2a0050);
-            border-top-left-radius: 50% 80px;
-            border-top-right-radius: 50% 80px;
-            margin-top: -80px;
-            box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.3);
+        #contact {
+            background-color: var(--secondary-color);
         }
 
         .contact-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background: rgba(42, 0, 80, 0.3);
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
+            max-width: 600px;
+            width: 100%;
+            padding: 30px;
+            border: 5px solid var(--primary-color);
+            background-color: var(--secondary-color);
+            position: relative;
         }
 
-        .contact-info {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            margin-top: 30px;
+        .contact-container::before {
+            content: 'CONTACT ME';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--secondary-color);
+            padding: 0 10px;
+            font-weight: bold;
         }
 
-        .contact-item {
-            flex: 1;
-            min-width: 250px;
-            padding: 20px;
+        .contact-form {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
+            gap: 15px;
         }
 
-        .contact-icon {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #6a11cb, #8a2be2);
-            border-radius: 50%;
+        .form-group {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+            flex-direction: column;
         }
 
-        .contact-item h3 {
-            margin-bottom: 10px;
-            color: #d4c1ff;
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
         }
 
-        .contact-item p, .contact-item a {
-            color: #b89dff;
-            text-decoration: none;
-            transition: all 0.3s;
+        input, textarea {
+            padding: 10px;
+            border: 2px solid var(--primary-color);
+            background-color: var(--secondary-color);
+            transition: var(--transition-speed);
         }
 
-        .contact-item a:hover {
-            color: #e0d5ff;
-            text-decoration: underline;
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
         }
 
-        /* Animations and effects */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
         }
 
-        @keyframes glow {
-            from { text-shadow: 0 0 5px #8a2be2, 0 0 10px #8a2be2; }
-            to { text-shadow: 0 0 15px #8a2be2, 0 0 30px #8a2be2; }
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            padding: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition-speed);
+            align-self: flex-start;
         }
 
-        .transition-element {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%233b0062' fill-opacity='1' d='M0,64L48,96C96,128,192,192,288,213.3C384,235,480,213,576,197.3C672,181,768,171,864,181.3C960,192,1056,224,1152,224C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
-            background-size: cover;
-            pointer-events: none;
+        .submit-btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
         }
 
-        .stars {
+        /* Particles */
+        #particles-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0;
+            z-index: 1;
         }
 
-        .star {
+        .particle {
             position: absolute;
-            width: 2px;
-            height: 2px;
-            background-color: white;
+            background-color: var(--primary-color);
+            width: 5px;
+            height: 5px;
             border-radius: 50%;
-            opacity: 0;
-            animation: twinkle 5s infinite;
+            opacity: 0.8;
         }
 
-        @keyframes twinkle {
-            0% { opacity: 0; }
-            50% { opacity: 1; }
-            100% { opacity: 0; }
+        /* 3D Models (simplified with placeholder) */
+        .model {
+            width: 100%;
+            height: 100%;
+            background-color: var(--accent-color);
+            transition: transform 0.3s;
+            transform-style: preserve-3d;
         }
 
-        footer {
-            padding: 30px;
-            text-align: center;
-            background: linear-gradient(to right, #250046, #3b0062);
-            color: #d4c1ff;
-            font-size: 0.9rem;
-            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Responsive design */
-        @media (max-width: 991px) {
-            .menu-toggle {
-                display: flex;
-            }
-
-            .nav-menu {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 250px;
-                height: 100%;
-                background: rgba(18, 0, 36, 0.95);
-                backdrop-filter: blur(10px);
-                flex-direction: column;
-                justify-content: flex-start; /* Changed to fix overlapping */
-                align-items: center;
-                z-index: 1001;
-                transition: right 0.3s ease;
-                padding: 80px 0 140px; /* Increased bottom padding */
-                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
-            }
-
-            .nav-menu.active {
-                right: 0;
-            }
-
-            nav ul {
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .islands-container {
                 flex-direction: column;
                 align-items: center;
             }
-
-            nav ul li {
-                margin: 15px 0;
-            }
-
-            .social-icons {
-                position: absolute; /* Fixed overlapping by positioning at bottom */
-                bottom: 40px;
-                left: 0;
-                width: 100%;
-                justify-content: center;
-                margin-left: 0;
-            }
-
-            .menu-toggle.active span:nth-child(1) {
-                transform: translateY(9px) rotate(45deg);
-            }
-
-            .menu-toggle.active span:nth-child(2) {
-                opacity: 0;
-            }
-
-            .menu-toggle.active span:nth-child(3) {
-                transform: translateY(-9px) rotate(-45deg);
-            }
-
-            .banner-content h1 {
+            
+            .title {
                 font-size: 2.5rem;
             }
-            
-            .banner-content p {
-                font-size: 1.2rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
 
-            /* Adjusted parallax and banner for mobile */
-            .parallax-container {
-                height: 100vh;
-            }
-            
-            .banner-image-container {
-                height: 20vh;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .contact-item {
-                flex-basis: 100%;
+            nav {
+                flex-direction: column;
+                align-items: center;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Stars background -->
-    <div class="stars" id="stars"></div>
+    <!-- Navigation -->
+    <nav>
+        <button class="nav-btn" data-section="home">HOME</button>
+        <button class="nav-btn" data-section="work">MY WORK</button>
+        <button class="nav-btn" data-section="contact">CONTACT</button>
+    </nav>
 
-    <!-- Header & Navigation -->
-    <header>
-        <div class="logo">Sourish Designs</div>
-        <div class="nav-container">
-            <div class="menu-toggle" id="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <nav>
-                <ul class="nav-menu" id="nav-menu">
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li><a href="#portfolio" class="nav-link">My Work</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon">FB</a>
-                        <a href="#" class="social-icon">IG</a>
-                        <a href="#" class="social-icon">TW</a>
-                        <a href="#" class="social-icon">YT</a>
-                    </div>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <!-- Social Media Buttons -->
+    <div class="social-container">
+        <a href="https://twitter.com" target="_blank" class="social-btn">T</a>
+        <a href="https://instagram.com" target="_blank" class="social-btn">I</a>
+        <a href="https://linkedin.com" target="_blank" class="social-btn">L</a>
+        <a href="https://github.com" target="_blank" class="social-btn">G</a>
+    </div>
 
-    <!-- Banner section with full parallax effect -->
-    <section class="banner" id="home">
-        <!-- Parallax container now fills entire valley -->
-        <div class="parallax-container" id="parallax-container">
-            <img src="assets\parallax\backG.png" alt="Background placeholder" class="parallax-bg" id="parallax-bg">
-            <img src="assets\parallax\foreG.png" alt="Foreground placeholder" class="parallax-fg" id="parallax-fg">
-            
-            <div class="banner-content">
-                <h1>Designs by Sourish</h1>
-                <p>Journey through the cosmic realm</p>
+    <!-- Home Section -->
+    <section id="home" class="active">
+        <div class="parallax-banner">
+            <div class="banner-layer layer-1"></div>
+            <div class="banner-layer layer-2"></div>
+            <div class="banner-layer layer-3">
+                <h1 class="title comic-text">COMIC PORTFOLIO</h1>
             </div>
         </div>
-        
-        <div class="transition-element"></div>
+        <p class="subtitle">Bringing ideas to life with hand-drawn comic book aesthetics</p>
     </section>
 
-
-    <!-- Plateau section with banner moved up -->
-    <section class="plateau" id="portfolio">
-
-        <section> <!-- 3D section -->
-            <h1 class="page-title">Explore My Work</h1>
-            
-            <div class="section-container">
-                <!-- Game Dev Section -->
-                <div class="section-card" id="gamedev-card">
-                    <div class="model-container" id="gamedev-model"></div>
-                    <div class="section-info">
-                        <h2>Game Development</h2>
-                        <p>Explore my game development projects, tools, and design philosophies.</p>
-                        <a href="#" class="cta-button">Discover Games</a>
+    <!-- Work Section -->
+    <section id="work">
+        <h2 class="comic-text">MY WORK</h2>
+        <div class="islands-container">
+            <!-- GameDev Island -->
+            <div class="island">
+                <div class="island-content">
+                    <div class="island-front comic-border">
+                        <h3 class="island-title comic-text">GAMEDEV</h3>
+                        <div class="model-container">
+                            <div class="model" data-model="gamedev"></div>
+                        </div>
+                        <p class="island-desc">Interactive experiences & game projects</p>
                     </div>
-                </div>
-                
-                <!-- Filmmaking Section -->
-                <div class="section-card" id="film-card">
-                    <div class="model-container" id="film-model"></div>
-                    <div class="section-info">
-                        <h2>Filmmaking</h2>
-                        <p>View my cinematic works, from short films to visual effects and cinematography.</p>
-                        <a href="#" class="cta-button">Watch Films</a>
-                    </div>
-                </div>
-                
-                <!-- Tech Section -->
-                <div class="section-card" id="tech-card">
-                    <div class="model-container" id="tech-model"></div>
-                    <div class="section-info">
-                        <h2>Technology</h2>
-                        <p>Check out my tech projects, software developments, and innovative solutions.</p>
-                        <a href="#" class="cta-button">See Tech</a>
+                    <div class="island-back">
+                        <p>Explore my game development projects, from indie prototypes to fully realized games</p>
+                        <button class="view-btn" data-page="gamedev">VIEW PROJECTS</button>
                     </div>
                 </div>
             </div>
-        
-            <script>
-                // Initialize Three.js scenes
-                const scenes = [];
-                const cameras = [];
-                const renderers = [];
-                const animationStates = {
-                    'gamedev-model': { rotating: true },
-                    'film-model': { rotating: true },
-                    'tech-model': { rotating: true }
-                };
-        
-                // Container elements
-                const containers = [
-                    document.getElementById('gamedev-model'),
-                    document.getElementById('film-model'),
-                    document.getElementById('tech-model')
-                ];
-        
-                // Setup scenes
-                containers.forEach((container, index) => {
-                    // Create scene
-                    const scene = new THREE.Scene();
-                    scenes.push(scene);
-                    
-                    // Create camera
-                    const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-                    camera.position.z = 5;
-                    cameras.push(camera);
-                    
-                    // Create renderer
-                    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-                    renderer.setSize(container.clientWidth, container.clientHeight);
-                    container.appendChild(renderer.domElement);
-                    renderers.push(renderer);
-                    
-                    // Add lighting
-                    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-                    scene.add(ambientLight);
-                    
-                    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-                    directionalLight.position.set(0, 1, 1);
-                    scene.add(directionalLight);
-                    
-                    // Create placeholder model (cube for now, will be replaced with your 3D models)
-                    let geometry, material, mesh;
-                    
-                    if (index === 0) { // Game Dev - Controller
-                        geometry = new THREE.BoxGeometry(2, 1, 3);
-                        material = new THREE.MeshPhongMaterial({ 
-                            color: 0x4d84ff,
-                            shininess: 100
-                        });
-                    } else if (index === 1) { // Film - Camera
-                        geometry = new THREE.CylinderGeometry(0.8, 1, 2, 32);
-                        material = new THREE.MeshPhongMaterial({ 
-                            color: 0xff4d9d,
-                            shininess: 100
-                        });
-                    } else { // Tech - Laptop
-                        geometry = new THREE.BoxGeometry(3, 0.2, 2);
-                        material = new THREE.MeshPhongMaterial({ 
-                            color: 0x4dff84,
-                            shininess: 100
-                        });
-                    }
-                    
-                    mesh = new THREE.Mesh(geometry, material);
-                    scene.add(mesh);
-                    
-                    // Store mesh in scene for animation
-                    scene.userData.mesh = mesh;
-                    
-                    // Add hover event listeners
-                    container.addEventListener('mouseenter', () => {
-                        animationStates[container.id].rotating = false;
-                    });
-                    
-                    container.addEventListener('mouseleave', () => {
-                        animationStates[container.id].rotating = true;
-                    });
-                    
-                    // Handle click event
-                    container.parentElement.addEventListener('click', () => {
-                        // Here you would add code to handle what happens when a section is clicked
-                        console.log(`${container.id} was clicked`);
-                    });
-                    
-                    // Handle window resize
-                    window.addEventListener('resize', () => {
-                        const width = container.clientWidth;
-                        const height = container.clientHeight;
-                        
-                        cameras[index].aspect = width / height;
-                        cameras[index].updateProjectionMatrix();
-                        renderers[index].setSize(width, height);
-                    });
-                });
-        
-                // Device orientation for mobile stabilization
-                if (window.DeviceOrientationEvent) {
-                    window.addEventListener('deviceorientation', (event) => {
-                        // Alpha: rotation around z-axis
-                        // Beta: front-back motion
-                        // Gamma: left-right motion
-                        
-                        const alpha = event.alpha ? THREE.MathUtils.degToRad(event.alpha) : 0;
-                        const beta = event.beta ? THREE.MathUtils.degToRad(event.beta) : 0;
-                        const gamma = event.gamma ? THREE.MathUtils.degToRad(event.gamma) : 0;
-                        
-                        // Update all models to counter device movement
-                        scenes.forEach(scene => {
-                            if (scene.userData.mesh) {
-                                // Apply inverse rotation to stabilize the model
-                                scene.userData.mesh.rotation.x = -beta * 0.1;
-                                scene.userData.mesh.rotation.y = -gamma * 0.1;
-                                scene.userData.mesh.rotation.z = -alpha * 0.1;
-                            }
-                        });
-                    });
-                }
-        
-                // Animation loop
-                function animate() {
-                    requestAnimationFrame(animate);
-                    
-                    scenes.forEach((scene, index) => {
-                        const mesh = scene.userData.mesh;
-                        const containerId = containers[index].id;
-                        
-                        if (animationStates[containerId].rotating) {
-                            // Apply continuous rotation
-                            mesh.rotation.y += 0.01;
-                        }
-                        
-                        renderers[index].render(scene, cameras[index]);
-                    });
-                }
-                
-                animate();
-            </script>
-            </section>
-
-    
-        <!-- Banner image container moved here -->
-        <div class="banner-image-container">
-            <img src="/api/placeholder/1600/400" alt="Banner placeholder" class="banner-image" id="banner-image">
-            <div class="banner-overlay"></div>
-        </div>
-        
-        <!-- My Work section moved below the banner 
-        <h2 class="section-title">My Work</h2>
-        
-        <div class="placeholder-text">
-            <p>Hello, I am Sourish. A VFX artist, Digital Filmmaker and Indie Game Developer.</p>
-        </div> -->
-
-        <!-- YouTube Video Section -->
-        <h2 class="section-title">Featured Video</h2>
-        <div class="youtube-container">
-            <img src="assets\Video Thumbnails\Arjuna Vs Karna.png" alt="YouTube Thumbnail" class="youtube-thumbnail">
-            <a href="https://www.youtube.com/watch?v=0UCMIbde49s" target="_blank" class="play-button"></a>
+            
+            <!-- Films Island -->
+            <div class="island">
+                <div class="island-content">
+                    <div class="island-front comic-border">
+                        <h3 class="island-title comic-text">FILMS</h3>
+                        <div class="model-container">
+                            <div class="model" data-model="films"></div>
+                        </div>
+                        <p class="island-desc">Cinematic stories & visual narratives</p>
+                    </div>
+                    <div class="island-back">
+                        <p>Discover my filmmaking work, including short films, animations, and visual storytelling</p>
+                        <button class="view-btn" data-page="films">VIEW PROJECTS</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tech Island -->
+            <div class="island">
+                <div class="island-content">
+                    <div class="island-front comic-border">
+                        <h3 class="island-title comic-text">TECH</h3>
+                        <div class="model-container">
+                            <div class="model" data-model="tech"></div>
+                        </div>
+                        <p class="island-desc">Innovations & technical solutions</p>
+                    </div>
+                    <div class="island-back">
+                        <p>Check out my technical projects, coding experiments, and innovative solutions</p>
+                        <button class="view-btn" data-page="tech">VIEW PROJECTS</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <h2 class="section-title">Get in Touch</h2>
-        <div class="contact-container">
-            <div class="contact-info">
-                <div class="contact-item">
-                    <div class="contact-icon">📧</div>
-                    <h3>Email</h3>
-                    <a href="mailto:your.email@example.com">sourish.basu@example.com</a>
+    <section id="contact">
+        <div class="contact-container comic-border">
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">NAME</label>
+                    <input type="text" id="name" required>
                 </div>
-                <div class="contact-item">
-                    <div class="contact-icon">📱</div>
-                    <h3>Phone</h3>
-                    <p>+91 00000-11111</p>
+                <div class="form-group">
+                    <label for="email">EMAIL</label>
+                    <input type="email" id="email" required>
                 </div>
-                <div class="contact-item">
-                    <div class="contact-icon">📍</div>
-                    <h3>Location</h3>
-                    <p>India</p>
+                <div class="form-group">
+                    <label for="subject">SUBJECT</label>
+                    <input type="text" id="subject" required>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="message">MESSAGE</label>
+                    <textarea id="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn comic-text">SEND MESSAGE</button>
+            </form>
         </div>
     </section>
 
-    <footer>
-        <p>© 2025 Sourish Basu</p>
-    </footer>
+    <!-- Particles Container -->
+    <div id="particles-container"></div>
 
     <script>
-        // Create stars
-        const starsContainer = document.getElementById('stars');
-        const numberOfStars = 200;
+        // Navigation Functionality
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('section');
 
-        for (let i = 0; i < numberOfStars; i++) {
-            const star = document.createElement('div');
-            star.classList.add('star');
-            star.style.left = `${Math.random() * 100}%`;
-            star.style.top = `${Math.random() * 100}%`;
-            star.style.animationDelay = `${Math.random() * 5}s`;
-            star.style.width = `${Math.random() * 3}px`;
-            star.style.height = star.style.width;
-            starsContainer.appendChild(star);
-        }
-
-        // Parallax effect for mouse movement - increased sensitivity
-        const parallaxContainer = document.getElementById('parallax-container');
-        const parallaxBg = document.getElementById('parallax-bg');
-        const parallaxFg = document.getElementById('parallax-fg');
-        const bannerImage = document.getElementById('banner-image');
-
-        // Mouse movement parallax with increased sensitivity
-        parallaxContainer.addEventListener('mousemove', (e) => {
-            const containerRect = parallaxContainer.getBoundingClientRect();
-            const mouseX = (e.clientX - containerRect.left) / containerRect.width - 0.5;
-            const mouseY = (e.clientY - containerRect.top) / containerRect.height - 0.5;
-            
-            // Increased sensitivity by doubling the multipliers
-            parallaxBg.style.transform = `translateX(${mouseX * 60}px) translateY(${mouseY * 60}px)`;
-            parallaxFg.style.transform = `translateX(${mouseX * 120}px) translateY(${mouseY * 120}px) translateZ(50px)`;
-        });
-
-        // Reset when mouse leaves
-        parallaxContainer.addEventListener('mouseleave', () => {
-            parallaxBg.style.transform = 'translateX(0) translateY(0)';
-            parallaxFg.style.transform = 'translateX(0) translateY(0) translateZ(50px)';
-        });
-
-        // Banner subtle movement
-        document.addEventListener('mousemove', (e) => {
-            const mouseX = e.clientX / window.innerWidth - 0.5;
-            const mouseY = e.clientY / window.innerHeight - 0.5;
-            
-            bannerImage.style.transform = `scale(1.05) translateX(${mouseX * 20}px) translateY(${mouseY * 20}px)`;
-        });
-
-        // Gyroscope for mobile devices with increased sensitivity
-        if (window.DeviceOrientationEvent) {
-            window.addEventListener('deviceorientation', handleOrientation);
-        }
-
-        function handleOrientation(event) {
-            // Check if we have the data we need
-            if (event.beta === null || event.gamma === null) return;
-            
-            // Beta is front-to-back tilt in degrees, where front is positive
-            // Gamma is left-to-right tilt in degrees, where right is positive
-            const beta = event.beta;  // Range: -180 to 180
-            const gamma = event.gamma; // Range: -90 to 90
-            
-            // Normalize the values with increased sensitivity
-            const normalizedBeta = (beta / 30).toFixed(2);  // Increased sensitivity
-            const normalizedGamma = (gamma / 30).toFixed(2); // Increased sensitivity
-            
-            // Apply the parallax effect with increased multipliers
-            parallaxBg.style.transform = `translateX(${normalizedGamma * -40}px) translateY(${normalizedBeta * -40}px)`;
-            parallaxFg.style.transform = `translateX(${normalizedGamma * -80}px) translateY(${normalizedBeta * -80}px) translateZ(50px)`;
-            
-            // Banner effect
-            bannerImage.style.transform = `scale(1.05) translateX(${normalizedGamma * -20}px) translateY(${normalizedBeta * -20}px)`;
-        }
-
-        // Mobile menu toggle
-        const menuToggle = document.getElementById('menu-toggle');
-        const navMenu = document.getElementById('nav-menu');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        menuToggle.addEventListener('click', () => {
-            menuToggle.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-
-        // Close menu when clicking a link
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                menuToggle.classList.remove('active');
-                navMenu.classList.remove('active');
+        navButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                // Create splash effect
+                createSplash(e);
+                
+                // Navigate to section
+                const sectionId = button.getAttribute('data-section');
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(sectionId).classList.add('active');
             });
         });
 
-        // Smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 70, // Adjust for header height
-                        behavior: 'smooth'
-                    });
+        // Splash Effect
+        function createSplash(e) {
+            const splash = document.createElement('div');
+            splash.classList.add('splash');
+            const x = e.clientX - e.target.offsetLeft;
+            const y = e.clientY - e.target.offsetTop;
+            splash.style.left = x + 'px';
+            splash.style.top = y + 'px';
+            splash.style.width = e.target.offsetWidth * 2 + 'px';
+            splash.style.height = e.target.offsetWidth * 2 + 'px';
+            e.target.appendChild(splash);
+            
+            setTimeout(() => {
+                splash.remove();
+            }, 600);
+        }
+
+        // Particles Animation
+        const particlesContainer = document.getElementById('particles-container');
+        const particleCount = 30;
+
+        for (let i = 0; i < particleCount; i++) {
+            createParticle();
+        }
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Random position
+            const posX = Math.random() * window.innerWidth;
+            const posY = Math.random() * window.innerHeight;
+            
+            // Random size
+            const size = Math.random() * 5 + 2;
+            
+            // Set styles
+            particle.style.left = posX + 'px';
+            particle.style.top = posY + 'px';
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.opacity = Math.random() * 0.5 + 0.3;
+            
+            // Append to container
+            particlesContainer.appendChild(particle);
+            
+            // Animate
+            animateParticle(particle);
+        }
+
+        function animateParticle(particle) {
+            // Random movement
+            const duration = Math.random() * 10 + 5;
+            const targetX = Math.random() * window.innerWidth;
+            const targetY = Math.random() * window.innerHeight;
+            
+            particle.style.transition = `all ${duration}s linear`;
+            particle.style.left = targetX + 'px';
+            particle.style.top = targetY + 'px';
+            
+            // Once animation completes, create a new animation
+            setTimeout(() => {
+                if (particle.parentElement) {
+                    particlesContainer.removeChild(particle);
+                    createParticle();
                 }
+            }, duration * 1000);
+        }
+
+        // Parallax Effect
+        const parallaxLayers = document.querySelectorAll('.banner-layer');
+        let lastMouseX = 0;
+        let lastMouseY = 0;
+        let isPhone = window.innerWidth <= 768;
+
+        // Mouse movement parallax for desktop
+        document.addEventListener('mousemove', (e) => {
+            if (isPhone) return;
+            
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            parallaxLayers.forEach((layer, index) => {
+                const depth = (index + 1) * 10;
+                const moveX = (mouseX - 0.5) * depth;
+                const moveY = (mouseY - 0.5) * depth;
+                
+                layer.style.transform = `translate(${moveX}px, ${moveY}px)`;
             });
+        });
+
+        // Gyroscope control for mobile
+        window.addEventListener('deviceorientation', (e) => {
+            if (!isPhone) return;
+            
+            const tiltX = e.gamma / 30; // -1 to 1
+            const tiltY = e.beta / 30; // -1 to 1
+            
+            parallaxLayers.forEach((layer, index) => {
+                const depth = (index + 1) * 5;
+                const moveX = tiltX * depth;
+                const moveY = tiltY * depth;
+                
+                layer.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+        });
+
+        // Window resize handler
+        window.addEventListener('resize', () => {
+            isPhone = window.innerWidth <= 768;
+        });
+
+        // 3D Model Movement (simplified)
+        const models = document.querySelectorAll('.model');
+
+        models.forEach(model => {
+            const container = model.parentElement;
+            
+            container.addEventListener('mousemove', (e) => {
+                if (isPhone) return;
+                
+                const rect = container.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const moveX = (x - centerX) / 10;
+                const moveY = (y - centerY) / 10;
+                
+                model.style.transform = `rotateY(${moveX}deg) rotateX(${-moveY}deg)`;
+            });
+            
+            container.addEventListener('mouseleave', () => {
+                model.style.transform = 'rotateY(0deg) rotateX(0deg)';
+            });
+        });
+
+        // Handle device orientation for 3D models on mobile
+        window.addEventListener('deviceorientation', (e) => {
+            if (!isPhone) return;
+            
+            const tiltX = e.gamma / 3; // -1 to 1
+            const tiltY = e.beta / 3; // -1 to 1
+            
+            models.forEach(model => {
+                model.style.transform = `rotateY(${tiltX}deg) rotateX(${-tiltY}deg)`;
+            });
+        });
+
+        // Project buttons (placeholders)
+        const projectButtons = document.querySelectorAll('.view-btn');
+        projectButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                alert(`Navigating to ${button.getAttribute('data-page')} page`);
+                // Navigation code would go here
+            });
+        });
+
+        // Form handling (placeholder)
+        const contactForm = document.querySelector('.contact-form');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Message sent! (This is a demo - no message was actually sent)');
+            contactForm.reset();
         });
     </script>
 </body>
